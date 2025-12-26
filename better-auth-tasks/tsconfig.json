@@ -21,7 +21,7 @@
     "paths": {
       "@/*": ["./*"]
     },
-    "baseUrl": "src/"     // allows to alias project directories ('../../components') to absolute paths ('@/components').
+    //"baseUrl": "src/"     // allows to alias project directories ('../../components') to absolute paths ('@/components').
   },
   "include": [
     "next-env.d.ts",

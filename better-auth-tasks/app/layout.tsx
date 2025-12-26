@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+// LAYOUT : Contains components that will be present on all pages (e.g., navigation, footer). It persists across page navigations.
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
