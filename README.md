@@ -1,2 +1,2 @@
-# better-auth-todo
-A self hosted todo plugin created for and with better-auth
+# better-auth-task
+A self hosted task plugin created for and with better-auth
