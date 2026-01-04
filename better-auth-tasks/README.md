@@ -85,7 +85,12 @@ docker compose logs -f db
 # Supprimer les données (reset complet)
 docker compose down -v
 ```
-
+---
+## Better Auth
+```
+# Créer Tables de la DB. Cette commande doit être exécutée une seule fois lors de la configuration initiale de Better Auth.
+npx @better-auth/cli generate
+```
 
 
 ---
