@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Better Auth Tasks
 
-## Getting Started
+Application de gestion de tâches avec authentification, construite en suivant [ce tutoriel YouTube](https://www.youtube.com/watch?v=WPiqNDapQrk).
 
-First, run the development server:
+## 🛠Stack Technique
+
+- **Framework** : [Next.js](https://nextjs.org/) 16
+- **Base de données** : [PostgreSQL](https://www.postgresql.org/) 18
+- **ORM** : [Drizzle ORM](https://orm.drizzle.team/)
+- **Authentification** : [Better Auth](https://www.better-auth.com/)
+- **UI Components** : [shadcn/ui](https://ui.shadcn.com/)
+- **Styling** : [Tailwind CSS](https://tailwindcss.com/) v4
+
+---
+
+## Installation
+
+### 1. Cloner le projet et installer les dépendances
+
+```bash
+npm install
+```
+
+### 2. Configurer les variables d'environnement
+
+Copier le fichier `.env.example` en `.env` et remplir les valeurs :
+
+```bash
+cp .env.example .env
+```
+
+### 3. Lancer la base de données PostgreSQL
+
+```bash
+docker compose up -d
+```
+
+> ⚠️ **Prérequis** : Avoir [Docker Desktop](https://www.docker.com/products/docker-desktop/) installé et lancé.
+
+### 4. Appliquer les migrations de la base de données
+
+```bash
+npm run db:push
+```
+
+### 5. Lancer le serveur de développement
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ouvrir [http://localhost:3000](http://localhost:3000) dans le navigateur.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Scripts Disponibles
 
-## Learn More
+| Commande | Description |
+|----------|-------------|
+| `npm run dev` | Lance le serveur de développement Next.js |
+| `npm run build` | Build l'application pour la production |
+| `npm run start` | Lance l'application en mode production |
+| `npm run lint` | Vérifie le code avec ESLint |
+| `npm run db:generate` | Génère les migrations Drizzle à partir du schéma |
+| `npm run db:migrate` | Applique les migrations en attente |
+| `npm run db:studio` | Ouvre Drizzle Studio (interface visuelle pour la BDD) |
+| `npm run db:push` | Synchronise le schéma directement avec la BDD (dev) |
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Docker
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Le fichier `docker-compose.yml` configure PostgreSQL :
 
-## Deploy on Vercel
+```bash
+# Démarrer la base de données
+docker compose up -d
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Arrêter la base de données
+docker compose down
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Voir les logs
+docker compose logs -f db
+
+# Supprimer les données (reset complet)
+docker compose down -v
+```
+
+
+
+---
+
+## Ressources
+
+- [Documentation Next.js](https://nextjs.org/docs)
+- [Documentation Drizzle ORM](https://orm.drizzle.team/docs/overview)
+- [Documentation Better Auth](https://www.better-auth.com/docs)
+- [Documentation shadcn/ui](https://ui.shadcn.com/docs)
