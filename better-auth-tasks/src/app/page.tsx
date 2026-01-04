@@ -1,6 +1,6 @@
 'use client';
-import Image from "next/image";
 import {useState} from "react";
+import Link from "next/link";
 
 // PAGE : The main content of a specific route or URL. It changes based on navigation.
 
@@ -18,7 +18,7 @@ export default function Home() {
                         className="dark:invert">
                     +1
                 </button>
-                <link href="/auth/login">Sign In / Sign Up</link>
+                <Link href="/auth/login">Sign In / Sign Up</Link>
             </div>
         </div>
   );
