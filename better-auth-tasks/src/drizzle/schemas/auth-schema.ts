@@ -2,6 +2,7 @@ import { relations } from "drizzle-orm";
 import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
 
 // AUTH SCHEMA : Defines the database schema for user authentication and management using Drizzle ORM with PostgreSQL.
+// Auto-Generated with CLI command "npx @better-auth/cli generate".
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
