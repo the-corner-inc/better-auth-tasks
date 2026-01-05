@@ -55,59 +55,71 @@ export function SignUpTab() {
     const {isSubmitting} = form.formState
 
 
-    return <Form {...form}>
-        <form
-            className="space-y-4"
-            onSubmit={form.handleSubmit(handleSignUp)}
-        >
-            <FormField
-                control={form.control}
-                name="name"
-                render={({field}) => (
-                    <FormItem>
-                        <FormItem>Name</FormItem>
-                        <FormControl>
-                            <Input type="name" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
+    return (
+        // Form component wrapping the sign-up form. "...form" spreads the form methods and state into the Form component.
+        // The components that create the form fields are:
+        // - FormField: Connects each field to the form state and validation.
+        // - FormItem: Wrapper for each form field, including label and message. Is a layout component for spacing and structure.
+        // - FormControl: Wraps the actual input component. Connects the input to the form state.
+        // - - Input / PasswordInput: The actual input fields for user data entry.
+        // - FormMessage: Displays validation error messages for each field.
+        // The main components are NAME, EMAIL, PASSWORD, and SUBMIT BUTTON.
 
-            <FormField
-                control={form.control}
-                name="email"
-                render={({field}) => (
-                    <FormItem>
-                        <FormItem>Email</FormItem>
-                        <FormControl>
-                            <Input type="email" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
+        <Form {...form}>
+            <form                                                  // HTML form element that handles submission
+                className="space-y-4"
+                onSubmit={form.handleSubmit(handleSignUp)}         // On submission, validate and call handleSignUp function
+            >
+                <FormField                  // Field for NAME input
+                    control={form.control}  // Connects to form control to manage state and validation
+                    name="name"
+                    render={({field}) => (
+                        <FormItem>
+                            <FormItem>Name</FormItem>
+                            <FormControl>
+                                <Input type="name" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
 
-            <FormField
-                control={form.control}
-                name="password"
-                render={({field}) => (
-                    <FormItem>
-                        <FormItem>Password</FormItem>
-                        <FormControl>
-                            <PasswordInput {...field} />
-                        </FormControl>
-                        <FormMessage />
-                    </FormItem>
-                )}
-            />
+                <FormField
+                    control={form.control}
+                    name="email"
+                    render={({field}) => (
+                        <FormItem>
+                            <FormItem>Email</FormItem>
+                            <FormControl>
+                                <Input type="email" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
 
-            <Button type="submit" disabled={isSubmitting} className="w-full">
-                <LoadingSwap isLoading={isSubmitting}>
-                    Sign Up
-                </LoadingSwap>
-            </Button>
+                <FormField
+                    control={form.control}
+                    name="password"
+                    render={({field}) => (
+                        <FormItem>
+                            <FormItem>Password</FormItem>
+                            <FormControl>
+                                <PasswordInput {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
 
-        </form>
-    </Form>
+                <Button type="submit" disabled={isSubmitting} className="w-full">
+                    <LoadingSwap isLoading={isSubmitting}>
+                        Sign Up
+                    </LoadingSwap>
+                </Button>
+
+            </form>
+        </Form>
+        )
+
 }
