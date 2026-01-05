@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import {Toaster} from "@/components/ui/sonner";
 
 // LAYOUT : Contains components that will be present on all pages (e.g., navigation, footer). It persists across page navigations.
 
@@ -30,6 +31,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
       >
         {children}
+        <Toaster />
       </body>
     </html>
   );
