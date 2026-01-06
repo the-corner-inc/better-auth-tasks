@@ -57,6 +57,7 @@ export default async function ProfilePage() {
                 </div>
             </div>
 
+
             <Tabs>
                 <TabsList className="grid w-full grid-cols-5">
                     <TabsTrigger value="profile">
@@ -81,10 +82,21 @@ export default async function ProfilePage() {
                     </TabsTrigger>
                 </TabsList>
 
+
+
                 <TabsContent value="profile">
                     <Card>
                         <CardContent>
                             <ProfileUpdateForm user={session.user} />
+                        </CardContent>
+                    </Card>
+                </TabsContent>
+                <TabsContent value="security">
+                    <Card>
+                        <CardContent>
+                            <LoadingSuspense>
+
+                            </LoadingSuspense>
                         </CardContent>
                     </Card>
                 </TabsContent>

@@ -16,6 +16,8 @@ import { Button } from "@/components/ui/button"
 import { LoadingSwap } from "@/components/ui/loading-swap"
 import { NumberInput } from "@/components/ui/number-input"
 import { useRouter } from "next/navigation"
+import {authClient} from "@/lib/auth/auth-client";
+import {toast} from "sonner";
 
 const profileUpdateSchema = z.object({
     name: z.string().min(1),
@@ -40,8 +42,38 @@ export function ProfileUpdateForm({ user }: Readonly<{
 
     const { isSubmitting } = form.formState
 
-    async function handleProfileUpdate(data: ProfileUpdateFormData) {
-        // TODO: implémenter
+    async function handleProfileUpdate(data: ProfileUpdateFormData)
+    {
+        const promises = [
+            authClient.updateUser({
+                name: data.name,
+                numbersOfRepos: data.numbersOfRepos,
+            })
+        ]
+
+        if(data.email !== user.email){
+            // TODO: implément & allow modify email in "auth.ts" to modify email
+            //authClient.changeEmail({newEmail: data.email, callbackURL: "/profile"})
+        }
+
+        const res = await Promise.all(promises)
+        const updateUserResult = res[0]
+        const emailResult = res[1] ?? {error: false}
+
+        if (updateUserResult.error) {
+            toast.error(updateUserResult.error.message || "Failed to update profile")
+        } else if (emailResult.error) {
+            toast.error(emailResult.error.message || "Failed to change email")
+        } else {
+            if (data.email !== user.email) {
+                toast.success("Verify your new email address to complete the change.")
+            } else {
+                toast.success("Profile updated successfully")
+            }
+            router.refresh()
+        }
+
+
     }
 
     return (
