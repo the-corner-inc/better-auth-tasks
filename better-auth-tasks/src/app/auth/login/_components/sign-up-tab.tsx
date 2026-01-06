@@ -11,6 +11,7 @@ import {LoadingSwap} from "@/components/ui/loading-swap";
 import {authClient} from "@/lib/auth/auth-client";
 import {toast} from "sonner";
 import {useRouter} from "next/navigation";
+import {NumberInput} from "@/components/ui/number-input";
 
 
 // Define the data to be collected in the Sign Up form
@@ -18,6 +19,7 @@ const signUpSchema = z.object({
         name: z.string().min(2),
         email: z.email().min(1),
         password: z.string().min(6),
+        numbersOfRepos: z.number().int(),
 })
 
 type SignUpForm = z.infer<typeof signUpSchema>      // Data type for Sign Up form data
@@ -106,6 +108,20 @@ export function SignUpTab() {
                             <FormItem>Password</FormItem>
                             <FormControl>
                                 <PasswordInput {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                <FormField
+                    control={form.control}
+                    name="numbersOfRepos"
+                    render={({field}) => (
+                        <FormItem>
+                            <FormItem>Number of code Repository you have</FormItem>
+                            <FormControl>
+                                <NumberInput {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

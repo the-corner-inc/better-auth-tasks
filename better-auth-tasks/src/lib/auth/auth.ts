@@ -7,6 +7,16 @@ import {nextCookies} from "better-auth/next-js"; // the drizzle instance
 //  Make sure to export the auth instance with the variable name auth or as a default export.
 export const auth = betterAuth({
 
+
+    user: {
+      additionalFields: {
+          numbersOfRepos: {
+              type: "number",
+              required: true,
+          }
+      }
+    },
+
     // Configure Drizzle adapter with PostgreSQL provider and database instance
     database: drizzleAdapter(db, {
         provider: "pg",
@@ -39,10 +49,21 @@ export const auth = betterAuth({
         github: {
             clientId: process.env.GITHUB_CLIENT_ID! as string,
             clientSecret: process.env.GITHUB_CLIENT_SECRET! as string,
+            // Map GitHub profile data (number of public repos) to user fields in the database
+            mapProfileToUser: (profile) => {
+                return {
+                    numbersOfRepos: Number(profile.public_repos) || 0
+                }
+            }
         },
         google: {
             clientId: process.env.GOOGLE_CLIENT_ID! as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET! as string,
+            mapProfileToUser: (profile) => {
+                return {
+                    favoriteNumber: 0
+                }
+            }
         },
     },
 

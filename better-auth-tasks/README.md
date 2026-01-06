@@ -91,6 +91,9 @@ docker compose down -v
 # Créer Tables de la DB. Cette commande doit être exécutée une seule fois lors de la configuration initiale de Better Auth.
 npx @better-auth/cli generate
 ```
+Note, normalement le fichier "auth.ts" doit se trouver normalement dans "/src/lib", mais ici il est rangé dans "/src/lib/auth", il faut donc utiliser la commande "auth:generate" disponible dans le "package.json"
+
+Workflow : A chaque modification de "auth.ts", il faut faire une generation, puis un push à la db. 
 
 
 ---
