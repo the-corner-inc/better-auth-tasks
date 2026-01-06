@@ -23,7 +23,7 @@ export const auth = betterAuth({
     // the rate limit is stored by default in memory of the app, wich doesn't work in a serverless environment.
     // So we configure it to use the database to store rate limit data.
     /*rateLimit: {
-        storage: "database" //--> Use ArcJet to store rate limit data in the database. 
+        storage: "database" //--> Use ArcJet to store rate limit data in the database.
     },
     */
 
@@ -35,12 +35,16 @@ export const auth = betterAuth({
     emailAndPassword: {
         enabled: true,
     },
-    /*socialProviders: {
+    socialProviders: {
         github: {
-            clientId: process.env.GITHUB_CLIENT_ID as string,
-            clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+            clientId: process.env.GITHUB_CLIENT_ID! as string,
+            clientSecret: process.env.GITHUB_CLIENT_SECRET! as string,
+        },
+        google: {
+            clientId: process.env.GOOGLE_CLIENT_ID! as string,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET! as string,
         },
     },
 
-     */
+
 });

@@ -3,6 +3,7 @@ import {useState} from "react";
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import {authClient} from "@/lib/auth-client";
+import {BetterAuthActionButton} from "@/components/auth/better-auth-action-button";
 
 // PAGE : The main content of a specific route or URL. It changes based on navigation.
 
@@ -33,13 +34,14 @@ export default function Home() {
                     <>
                         <h1 className="text-3xl font-bold">Welcome {session.user.name}!</h1>
                         {/* TODO: Add Loading States */}
-                        <Button
+                        <BetterAuthActionButton
                             size="lg"
                             variant="destructive"
-                            onClick={() => authClient.signOut()}
+                            successMessage="Signed out successfully"
+                            action={() => authClient.signOut()}
                         >
                             Sign Out
-                        </Button>
+                        </BetterAuthActionButton>
                     </>
                 )}
             </div>

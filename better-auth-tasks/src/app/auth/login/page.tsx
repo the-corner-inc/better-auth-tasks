@@ -1,7 +1,9 @@
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
+import {Card, CardContent, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import {SignUpTab} from "@/app/auth/login/_components/sign-up-tab";
 import {SignInTab} from "@/app/auth/login/_components/sign-in-tab";
+import {Separator} from "@/components/ui/separator";
+import {SocialAuthButtons} from "@/app/auth/login/_components/social-auth-buttons";
 
 export default function LoginPage () {
     return (
@@ -19,6 +21,12 @@ export default function LoginPage () {
                     <CardContent>
                         <SignInTab/>
                     </CardContent>
+
+                    <Separator />
+
+                    <CardFooter className="grid grid-cols-2 gap-3">
+                        <SocialAuthButtons />
+                    </CardFooter>
                 </Card>
             </TabsContent>
 
