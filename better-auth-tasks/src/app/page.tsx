@@ -2,7 +2,7 @@
 import {useState} from "react";
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
-import {authClient} from "@/lib/auth-client";
+import {authClient} from "@/lib/auth/auth-client";
 import {BetterAuthActionButton} from "@/components/auth/better-auth-action-button";
 
 // PAGE : The main content of a specific route or URL. It changes based on navigation.

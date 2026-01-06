@@ -7,7 +7,7 @@ import {SignInTab} from "@/app/auth/login/_components/sign-in-tab";
 import {Separator} from "@/components/ui/separator";
 import {SocialAuthButtons} from "@/app/auth/login/_components/social-auth-buttons";
 import {useEffect} from "react";
-import {authClient} from "@/lib/auth-client";
+import {authClient} from "@/lib/auth/auth-client";
 import {useRouter} from "next/navigation";
 
 export default function LoginPage () {

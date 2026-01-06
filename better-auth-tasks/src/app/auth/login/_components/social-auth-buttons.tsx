@@ -1,8 +1,8 @@
 "use client"
 
-import {SUPPORTED_OAUTH_PROVIDER_DETAILS, SUPPORTED_OAUTH_PROVIDERS} from "@/lib/o-auth-providers";
+import {SUPPORTED_OAUTH_PROVIDER_DETAILS, SUPPORTED_OAUTH_PROVIDERS} from "@/lib/auth/o-auth-providers";
 import {Button} from "@/components/ui/button";
-import {authClient} from "@/lib/auth-client";
+import {authClient} from "@/lib/auth/auth-client";
 import {BetterAuthActionButton} from "@/components/auth/better-auth-action-button";
 
 export function SocialAuthButtons() {
