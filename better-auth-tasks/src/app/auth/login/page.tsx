@@ -12,6 +12,8 @@ import {useRouter} from "next/navigation";
 
 export default function LoginPage () {
 
+    // ToDo : Add : Email verification, forgot password, Welcome Email. Use "Resend" ?
+
     // Don't show the sign in / sign up page if the user is already authenticated
     const router = useRouter()
     useEffect(() => {
