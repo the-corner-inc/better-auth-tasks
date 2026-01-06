@@ -19,6 +19,14 @@ export const auth = betterAuth({
         }
     },
 
+    // Next.js is serverless by default, so rate limiting is disabled,
+    // the rate limit is stored by default in memory of the app, wich doesn't work in a serverless environment.
+    // So we configure it to use the database to store rate limit data.
+    /*rateLimit: {
+        storage: "database" //--> Use ArcJet to store rate limit data in the database. 
+    },
+    */
+
     plugins: [
         nextCookies()   // Makes sure cookies are handled correctly in Next.js environment. Sign In will be performed on the server side.
     ],
