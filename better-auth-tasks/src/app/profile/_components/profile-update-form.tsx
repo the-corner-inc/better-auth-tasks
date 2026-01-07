@@ -101,7 +101,7 @@ export function ProfileUpdateForm({ user }: Readonly<{
                     name="email"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Email</FormLabel>
+                            <FormLabel>Email - Unable to Update for now </FormLabel>
                             <FormControl>
                                 <Input type="email" {...field} />
                             </FormControl>

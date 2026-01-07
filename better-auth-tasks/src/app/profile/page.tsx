@@ -120,7 +120,7 @@ async function SecurityTab({email} : {email: string}){
         ) : (
             <Card>
                 <CardHeader>
-                    <CardTitle>Set Password</CardTitle>
+                    <CardTitle>Set Password - TO FINISH</CardTitle>
                     <CardDescription>we will send you a password reset email to set up a password</CardDescription>
                 </CardHeader>
                 <CardContent>
