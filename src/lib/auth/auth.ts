@@ -12,8 +12,13 @@ export const auth = betterAuth({
       additionalFields: {
           numbersOfRepos: {
               type: "number",
-              required: true,
+              required: false,
               defaultValue: 0,
+          },
+          numbersOfTasks: {
+              type: "number",
+              required: true,
+              defaultValue: -1,
           }
       }
     },
