@@ -13,6 +13,7 @@ export const auth = betterAuth({
           numbersOfRepos: {
               type: "number",
               required: true,
+              defaultValue: 0,
           }
       }
     },
@@ -61,7 +62,7 @@ export const auth = betterAuth({
             clientSecret: process.env.GOOGLE_CLIENT_SECRET! as string,
             mapProfileToUser: (profile) => {
                 return {
-                    favoriteNumber: 0
+                    numbersOfRepos: 0
                 }
             }
         },
