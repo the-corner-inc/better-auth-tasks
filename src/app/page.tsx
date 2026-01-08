@@ -40,6 +40,10 @@ export default function Home() {
                                 <Link href="/profile">Profile</Link>
                             </Button>
 
+                            <Button asChild size="lg">
+                                <Link href="/tasks">Tasks</Link>
+                            </Button>
+
                             <BetterAuthActionButton
                                 size="lg"
                                 variant="destructive"
