@@ -1,10 +1,11 @@
 import {auth} from "@/lib/auth/auth";
 import {headers} from "next/headers";
 import {redirect} from "next/navigation";
-import {getTasks} from "@/lib/business_layer/crudTasks";
+import {getTasks} from "@/lib/business_layer/tasks.service";
 import Link from "next/link";
 import {ArrowLeft, FlaskConical, Plus} from "lucide-react";
 import {Button} from "@/components/ui/button";
+import {TaskCard} from "@/app/tasks/_components/task-card";
 
 export default async function TasksPage() {
 
