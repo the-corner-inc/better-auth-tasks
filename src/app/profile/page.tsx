@@ -49,7 +49,7 @@ export default async function ProfilePage() {
                                 {session.user.name || "User Profile"}
                             </h1>
                             <Badge className="text-muted-foreground">
-                                {/* session.user.role */}
+                                {session.user.email}
                             </Badge>
                         </div>
                     </div>

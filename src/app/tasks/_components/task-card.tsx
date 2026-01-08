@@ -1,12 +1,12 @@
 "use client"
 
 import {useRouter} from "next/navigation";
-import {deleteTodo, toggleTodo} from "@/lib/business_layer/todos.service";
-import {deleteTask} from "@/lib/business_layer/tasks.service";
+import {deleteTodo, toggleTodo} from "@/lib/bll/todos.service";
+import {deleteTask} from "@/lib/bll/tasks.service";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
 import {CheckCircle, Trash2} from "lucide-react";
-import type {TaskWithTodosModel} from "@/lib/dto/tasks/taskTodoGENERATED.dto"; // import "type" avoids to break the bundle between server & client side
+import type {TaskWithTodosModel} from "@/lib/dto/tasks/taskTodoDb.dto"; // import "type" avoids to break the bundle between server & client side
 
 
 // ======================================================

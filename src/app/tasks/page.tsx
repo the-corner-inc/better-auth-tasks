@@ -1,7 +1,7 @@
 import {auth} from "@/lib/auth/auth";
 import {headers} from "next/headers";
 import {redirect} from "next/navigation";
-import {getTasks} from "@/lib/business_layer/tasks.service";
+import {getTasks} from "@/lib/bll/tasks.service";
 import Link from "next/link";
 import {ArrowLeft, FlaskConical, Plus} from "lucide-react";
 import {Button} from "@/components/ui/button";
@@ -41,7 +41,7 @@ export default async function TasksPage() {
                         </Link>
                         <Button>
                             <Plus className="size-4 mr-2"/>
-                            Nouvelle Task
+                            New Task
                         </Button>
                     </div>
                 </div>
