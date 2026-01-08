@@ -1,34 +1,23 @@
 "use client"
 
-import z from "zod";
 import {useRouter} from "next/navigation";
-import {deleteTodo, toggleTodo} from "@/lib/business_layer/crudTodos";
-import {deleteTask} from "@/lib/business_layer/crudTasks";
+import {deleteTodo, toggleTodo} from "@/lib/business_layer/todos.service";
+import {deleteTask} from "@/lib/business_layer/tasks.service";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
-import {Trash2} from "lucide-react";
+import {CheckCircle, Trash2} from "lucide-react";
+import type {TaskWithTodosModel} from "@/lib/dto/tasks/taskTodoGENERATED.dto"; // import "type" avoids to break the bundle between server & client side
 
-// ======================================================
-// Infered Types from drizzle schemas
-// ======================================================
-type  taskData= z.infer<typeof taskSchema>
-const taskSchema = z.object({
-    title: z.string().min(1),
-})
-
-type todoData = z.infer<typeof todoSchema>
-const todoSchema = z.object({
-    isDone: z.boolean().default(false),
-    content: z.string().min(1),
-    sortPosition: z.number().int()
-})
 
 // ======================================================
 // Task Card - Functions & Render
 // ======================================================
 
-export function TaskCard({ task }: {task: taskData}) {
+export function TaskCard({ task }: {task: TaskWithTodosModel}) {
     const router = useRouter()
+
+    const completedCount = task.todos.filter(t => t.isDone).length
+    const totalCount = task.todos.length
 
     const handleToggle = async (todoId: string) => {
         await toggleTodo(todoId)
@@ -41,8 +30,7 @@ export function TaskCard({ task }: {task: taskData}) {
     }
 
     const handleDeleteTask = async () => {
-        //await deleteTask(task.id)
-        //Todo !
+        await deleteTask(task.id)
         router.refresh()
     }
 
@@ -62,9 +50,48 @@ export function TaskCard({ task }: {task: taskData}) {
                         <Trash2 className="h-4 w-4"/>
                     </Button>
                 </div>
+                {totalCount > 0 && (
+                    <p className="text-sm text-muted-foreground">
+                        {completedCount}/{totalCount} completed
+                    </p>
+                )}
             </CardHeader>
             <CardContent>
-
+                {
+                    task.todos.length === 0 ? (
+                        <p className="text-sm text-muted-foreground italic">
+                            No Todo
+                        </p>
+                    ) : (
+                        <ul className="space-y-2">
+                            {task.todos.map( (todo) => (
+                                <li key={todo.id} className="flex items-center gap-2 group">
+                                    <button
+                                        onClick={() => handleToggle(todo.id)}
+                                        className="hover:scale-110 transition-transform"
+                                    >
+                                        {todo.isDone ? (
+                                            <CheckCircle className="h-5 w-5 text-green-500"/>
+                                        ) : (
+                                            <CheckCircle className="h-5 w-5 text-muted-foreground"/>
+                                        )}
+                                    </button>
+                                    <span className={`flex-1 text-sm ${
+                                        todo.isDone ? "line-through text-muted-foreground" : ""
+                                    }`}>
+                                        {todo.content}
+                                    </span>
+                                    <button
+                                        onClick={() => handleDeleteTodo(todo.id)}
+                                        className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive transition-opacity"
+                                    >
+                                        <Trash2 className="h-4 w-4" />
+                                    </button>
+                                </li>
+                            ) )}
+                        </ul>
+                    )
+                }
             </CardContent>
         </Card>
     )
