@@ -1,100 +1,160 @@
 # Better Auth Tasks
 
-Application de gestion de tâches avec authentification, construite en suivant [ce tutoriel YouTube](https://www.youtube.com/watch?v=WPiqNDapQrk).
+> Task management application with authentication, built by following this YouTube tutorial: 
+> [this tutorial](https://www.youtube.com/watch?v=WPiqNDapQrk).
 
-## 🛠Stack Technique
+Based on the tutorial, a POC is built to serve two purposes:
+- a **standalone web application**
+- a **partially packaged module** to be distributed as an npm package and integrated into the **up4it** application
+
+---
+
+## Technical Stack
 
 - **Framework** : [Next.js](https://nextjs.org/) 16
-- **Base de données** : [PostgreSQL](https://www.postgresql.org/) 18
+- **Database (docker)** : [PostgreSQL](https://www.postgresql.org/) 18
 - **ORM** : [Drizzle ORM](https://orm.drizzle.team/)
 - **Authentification** : [Better Auth](https://www.better-auth.com/)
 - **UI Components** : [shadcn/ui](https://ui.shadcn.com/)
 - **Styling** : [Tailwind CSS](https://tailwindcss.com/) v4
 
 ---
+## Project Status / TODO
+
+This section gives a quick overview of the current project state for other teams.
+
+### Feat (product)
+
+- [x] Follow the YouTube tutorial (preparation)
+- [x] Technology POC
+- [ ] Review GitHub issues and adapt the POC
+- [ ] Clean the app (remove tutorial leftovers)
+- [ ] Validate the need for additional auth features:
+    - email verification
+    - welcome email
+    - delete account
+    - update profile
+- [ ] Up4it: explore how to ship **two formats**
+    - **standalone web app**
+    - **integrable module** (only package a subset of the project)
+
+### Chore (internal)
+
+- [ ] Refactor toward a Layered Architecture (PL / BLL / DAL separation)
+- [ ] Add ESLint rules to enforce boundaries between layers
+- [ ] Clean code
+- [ ] Clean comments
+
+
+---
+
+
 
 ## Installation
 
-### 1. Cloner le projet et installer les dépendances
+### 1. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 2. Configurer les variables d'environnement
+### 2. Environment variables
 
-Copier le fichier `.env.example` en `.env` et remplir les valeurs :
+Copy `.env.example` to `.env` and fill in the values:
 
 ```bash
 cp .env.example .env
 ```
 
-### 3. Lancer la base de données PostgreSQL
+### 3. Start PostgreSQL
 
 ```bash
 docker compose up -d
 ```
 
-> ⚠️ **Prérequis** : Avoir [Docker Desktop](https://www.docker.com/products/docker-desktop/) installé et lancé.
+> Docker Desktop must be installed and running.
 
-### 4. Appliquer les migrations de la base de données
+### 4. Database migrations
 
 ```bash
+# Simple production setup with a new database
 npm run db:push
+
+# Keep database migration history
+npm run db:generate
+npm run db:migrate
+
+# Inspect database content
+npm run db:studio
 ```
 
-### 5. Lancer le serveur de développement
+### 5. Development server
 
 ```bash
 npm run dev
 ```
 
-Ouvrir [http://localhost:3000](http://localhost:3000) dans le navigateur.
+Open http://localhost:3000
 
 ---
 
-## Scripts Disponibles
+## Available Scripts
 
-| Commande | Description |
-|----------|-------------|
-| `npm run dev` | Lance le serveur de développement Next.js |
-| `npm run build` | Build l'application pour la production |
-| `npm run start` | Lance l'application en mode production |
-| `npm run lint` | Vérifie le code avec ESLint |
-| `npm run db:generate` | Génère les migrations Drizzle à partir du schéma |
-| `npm run db:migrate` | Applique les migrations en attente |
-| `npm run db:studio` | Ouvre Drizzle Studio (interface visuelle pour la BDD) |
-| `npm run db:push` | Synchronise le schéma directement avec la BDD (dev) |
+| Command | Description |
+|--------|------------|
+| `npm run dev` | Start Next.js development server |
+| `npm run build` | Build the application for production |
+| `npm run start` | Start the application in production mode |
+| `npm run lint` | Run ESLint |
+| `npm run db:generate` | Generate Drizzle migrations |
+| `npm run db:migrate` | Apply pending migrations |
+| `npm run db:studio` | Open Drizzle Studio |
+| `npm run db:push` | Sync schema directly to DB (dev only) |
+| `auth:generate` | Regenerate auth schemas after auth.ts changes |
 
 ---
 
 ## Docker
 
-Le fichier `docker-compose.yml` configure PostgreSQL :
+The file `docker-compose.yml` configures PostgreSQL :
 
 ```bash
-# Démarrer la base de données
+# Starts the database in detached mode
 docker compose up -d
 
-# Arrêter la base de données
+# Stops the database
 docker compose down
 
-# Voir les logs
+# Show the logs
 docker compose logs -f db
 
-# Supprimer les données (reset complet)
+# Delete all datas (complet reset)
 docker compose down -v
 ```
 ---
 ## Better Auth
-```
-# Créer Tables de la DB. Cette commande doit être exécutée une seule fois lors de la configuration initiale de Better Auth.
-npx @better-auth/cli generate
-```
-Note, normalement le fichier "auth.ts" doit se trouver normalement dans "/src/lib", mais ici il est rangé dans "/src/lib/auth", il faut donc utiliser la commande "auth:generate" disponible dans le "package.json"
 
-Workflow : A chaque modification de "auth.ts", il faut faire une generation, puis un push à la db. 
+Better Auth schemas are generated using the official CLI.
 
+The project uses a custom config path for `auth.ts`, so schema generation is handled via the following script:
+
+```bash
+npm run auth:generate
+
+#This scripts runs : 
+npx @better-auth/cli@latest generate \
+  --config ./src/lib/auth/auth.ts \
+  --output ./src/drizzle/schemas/new-auth-schema.ts \
+  --yes
+```
+### Workflow 
+ - Update auth.ts
+ - Run npm run auth:generate
+   - The generated schema is written to: "src/drizzle/schemas/new-auth-schema.ts"
+   - Copy the content of the newly generated schema into the existing auth schema file
+ - Apply database changes 
+   - db:push (simple / dev) 
+   - OR db:generate + db:migrate (with migrations)
 
 ---
 
