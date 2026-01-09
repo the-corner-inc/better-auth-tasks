@@ -7,6 +7,7 @@ import {tasks} from "@/drizzle/schema";
 import {revalidatePath} from "next/dist/server/web/spec-extension/revalidate";
 import {and, eq} from "drizzle-orm/sql/expressions/conditions";
 
+// TODO : use ".parse" or ".safeParse" with "taskWithTodosSchemaDTO" to verify data
 // ======================================================
 // HELPER : Get current user ID (throws if not logged in)
 // ======================================================
