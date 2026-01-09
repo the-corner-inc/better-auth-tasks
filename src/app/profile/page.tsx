@@ -20,9 +20,8 @@ export default async function ProfilePage() {
         <div className="max-w-4xl mx-auto my-6 px-4">
             <div className="mb-8">
                 <Link href="/" className="inline-flex items-center mb-6">
-                    <ArrowLeft className="size-4 mr-2">
+                    <ArrowLeft className="size-4 mr-2" />
                         Back to Home
-                    </ArrowLeft>
                 </Link>
                 <div className="flex items-center space-x-4">
 

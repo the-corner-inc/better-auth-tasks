@@ -6,6 +6,7 @@ import Link from "next/link";
 import {ArrowLeft, FlaskConical, Plus} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {TaskCard} from "@/app/tasks/_components/task-card";
+import {NewTaskCard} from "@/app/tasks/_components/new-task-card";
 
 export default async function TasksPage() {
 
@@ -39,42 +40,19 @@ export default async function TasksPage() {
                                 Test CRUD
                             </Button>
                         </Link>
-                        <Button>
-                            <Plus className="size-4 mr-2"/>
-                            New Task
-                        </Button>
                     </div>
                 </div>
             </div>
 
-            {/* Content */}
-            {tasks.length === 0 ?
-            /* If there is no tasks to show */
-            (
-                <div className="text-center py-12">
-                    <p className="text-muted-foreground mb-4">
-                        No tasks found at the moment.
-                    </p>
-                    <Link href="/tasks/test">
-                        <Button variant="outline">
-                            <FlaskConical className="size-4 mr-2"/>
-                            Go to page to seed test data
-                        </Button>
-                    </Link>
-                </div>
-
-            ):
-            /* If there are tasks to show */
-            (
-                <div className="grid gap-4 md:grid-cols-2">
-                    {
-                        tasks.map((task) => (
-                            <TaskCard key={task.id} task={task} />
-                        ))
-                    }
-                </div>
-
-            )}
+            {/* Content : Grid with "+" Task Card and existing tasks */}
+            <div className="grid gap-4 md:grid-cols-2">
+                <NewTaskCard />
+                {
+                    tasks.map((task) => (
+                        <TaskCard key={task.id} task={task} />
+                    ))
+                }
+            </div>
         </div>
     )
 }
