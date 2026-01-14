@@ -1,7 +1,7 @@
 "use client"
 
 import {useRouter} from "next/navigation";
-import {createTodo, deleteTodo, toggleTodo} from "@/lib/bll/todos/todos.service";
+import {createTodo, deleteTodo, toggleTodo} from "@/lib/bll/todos/todos.actions";
 import {deleteTask} from "@/lib/bll/tasks/tasks.actions";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";

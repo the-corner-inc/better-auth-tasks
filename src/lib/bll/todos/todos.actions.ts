@@ -1,30 +1,24 @@
 "use server"
 
-import {auth} from "@/lib/auth/auth";
-import {headers} from "next/headers";
 import {db} from "@/drizzle/db";
 import {tasks, todos} from "@/drizzle/schema";
 import { and } from "drizzle-orm";
 import {eq} from "drizzle-orm/sql/expressions/conditions";
 import {revalidatePath} from "next/dist/server/web/spec-extension/revalidate";
+import {getCurrentUserId} from "@/lib/auth/session";
 
 
+/**
+ * Next.js Server Actions - Interface with UI
+ * - Entry point for the UI layer
+ * - Place to call "use server"
+ * - Handles auth, cache revalidation and data shaping (returns)
+ * - Delegates business rules to the BLL
+ */
+
+// TODO : use ".parse" or ".safeParse" with "taskWithTodosSchemaDTO" to verify data
 // ======================================================
-// HELPER : Get current user ID (throws if not logged in)
-// ======================================================
-async function getCurrentUserId() {
-    const session = await auth.api.getSession({ headers: await headers() })
-
-    // If no session, or no user, or no id, then error
-    if (!session?.user?.id) {
-        throw new Error("Non authentifié")
-    }
-
-    return session.user.id
-}
-
-// ======================================================
-// CRUD TODOS
+// UI Server Actions
 // ======================================================
 
 // CREATE - Add a todos to a task
