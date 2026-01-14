@@ -19,6 +19,21 @@ Based on the tutorial, a POC is built to serve two purposes:
 - **Styling** : [Tailwind CSS](https://tailwindcss.com/) v4
 
 ---
+
+## Architecture (to redact correctly)
+This project is a fullstack app, some parts are being packaged as npm modules, the app itself should be a standalone usable as it is.
+The architecture tends to use a Layered architecture, with a : 
+- Presentation Layer (PL) : Is the Core part of the UI, how the data is diplayed on the screen and how the states are handeled. This is the User Interaction Layer.
+- Business Layer (BLL) : Contains the core logic of the app, the treatment is done here.
+- Data Acces Layer (DAL) : Connects the repo to the DB, and contains all the Query to it
+- Data Transfert Objects (DTO) : Cross layer, each layer has aces to it
+
+Choice of architecture : 
+- Ce que je connais le mieux dans la logique. Propre et decouplé, un peu boilerplate, mais on s'y fait vite.
+- React / NextJs pas de vraie architecture imposé, alors essayer d'en mettre une en place pour faire bien et avoir une base saine pour ce projet.
+- Overengineered base, mais si le projet grossit, c'est pratique pour bien construire dessus. Pour la lecture du code c'est aussi plus explicite et decouplé ça aide à comprendre le rôle de chaque partie.
+
+---
 ## Project Status / TODO
 
 This section gives a quick overview of the current project state for other teams.
@@ -44,6 +59,10 @@ This section gives a quick overview of the current project state for other teams
 - [ ] Add ESLint rules to enforce boundaries between layers
 - [ ] Clean code
 - [ ] Clean comments
+- [ ] Implement Error Handling
+- [ ] How to implement tests ? 
+- [ ] Make it as a whole container
+- [ ] DrawIO Diagramm of architecture, and put it in the project
 
 
 ---

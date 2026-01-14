@@ -2,6 +2,10 @@ import { z } from "zod";
 import {tasks, todos} from "@/drizzle/schema";
 import {createSelectSchema} from 'drizzle-zod';
 
+/**
+ * TODO : What does it do ? Get schemas and make DTO from it ? where do I use it now ? in UI ?
+ */
+
 // TODO : Review this with @Raph to validate this approach or not
 // ToDo : AutoGenerate zod Schemas -> Documentation : https://orm.drizzle.team/docs/zod?utm_source=chatgpt.com#select-schema
 // ================================================================

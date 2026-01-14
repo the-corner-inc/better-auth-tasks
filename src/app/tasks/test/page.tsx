@@ -5,9 +5,9 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/compo
 import {Button} from "@/components/ui/button";
 import {ArrowLeft, ArrowUp, CheckCircle, Circle, Database, Eraser, Plus, RefreshCw, Trash2} from "lucide-react";
 import { Input } from "@/components/ui/input"
-import { seedData, clearAllTasks } from "@/lib/bll/seedClearTasks.service";
-import { getTasks, createTask, deleteTask } from "@/lib/bll/tasks.service";
-import { createTodo, toggleTodo, deleteTodo } from "@/lib/bll/todos.service";
+import { seedData, clearAllTasks } from "@/lib/bll/seedClear/seedClearTasks.service";
+import { getTasks, createTask, deleteTask } from "@/lib/bll/tasks/tasks.actions";
+import { createTodo, toggleTodo, deleteTodo } from "@/lib/bll/todos/todos.service";
 import Link from "next/link";
 
 
@@ -17,7 +17,7 @@ export default function TestPage() {
     // 1) Stores the new alue
     // 2) Flag the composant as dirty
     // 3) Throws a new render of it (could happen at any time, so good that it stores the value)
-    const [result, setResult] = useState<string>("") // Result : typically for messages of succes / error
+    const [result, setResult] = useState<string>("") // Result : typically for messages of success / error
     const [tasks, setTasks] = useState<any[]>([])
     const [newTaskTitle, setNewTaskTitle] = useState<string>("")
     const [newTodoContent, setNewTodoContent] = useState<string>("")

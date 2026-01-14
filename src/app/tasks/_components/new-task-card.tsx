@@ -2,7 +2,7 @@
 
 import {useState} from "react";
 import {useRouter} from "next/navigation";
-import {createTask} from "@/lib/bll/tasks.service";
+import {createTask} from "@/lib/bll/tasks/tasks.actions";
 import {Card, CardContent} from "@/components/ui/card";
 import { Input } from "@/components/ui/input"
 import {Plus} from "lucide-react";

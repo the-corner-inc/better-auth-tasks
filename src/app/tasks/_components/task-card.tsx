@@ -1,8 +1,8 @@
 "use client"
 
 import {useRouter} from "next/navigation";
-import {createTodo, deleteTodo, toggleTodo} from "@/lib/bll/todos.service";
-import {deleteTask} from "@/lib/bll/tasks.service";
+import {createTodo, deleteTodo, toggleTodo} from "@/lib/bll/todos/todos.service";
+import {deleteTask} from "@/lib/bll/tasks/tasks.actions";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
 import {CheckCircle, Circle, Plus, PlusCircle, Trash2} from "lucide-react";
