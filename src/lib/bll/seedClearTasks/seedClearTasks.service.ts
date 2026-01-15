@@ -2,7 +2,7 @@
 
 import {auth} from "@/lib/auth/auth";
 import {headers} from "next/headers";
-import {tasks, todos} from "@/drizzle/schema";
+import {tasksTable, todosTable} from "@/drizzle/schema";
 import {db} from "@/drizzle/db";
 import {revalidatePath} from "next/dist/server/web/spec-extension/revalidate";
 import {eq} from "drizzle-orm/sql/expressions/conditions";
@@ -29,24 +29,24 @@ export async function seedData() {
     const userId = await getCurrentUserId()
 
     // 1) Create 2 tasks
-    const [task1] = await db.insert(tasks).values({
+    const [task1] = await db.insert(tasksTable).values({
         title: "Courses",
         userId,
     }).returning()
 
-    const [task2] = await db.insert(tasks).values({
+    const [task2] = await db.insert(tasksTable).values({
         title: "Projet Next.js",
         userId,
     }).returning()
 
     // 2) Add some todos to each task
-    await db.insert(todos).values([
+    await db.insert(todosTable).values([
         {content: "Acheter du lait", taskId: task1.id, sortPosition: 0},
         {content: "Acheter du pain", taskId: task1.id, sortPosition: 1},
         {content: "Acheter des oeufs", taskId: task1.id, sortPosition: 2, isDone: true},
     ])
 
-    await db.insert(todos).values([
+    await db.insert(todosTable).values([
         {content: "Regarder la video tutorial concernant better auth", taskId: task2.id, sortPosition: 0, isDone: true},
         {content: "Créer le CRUD des tasks", taskId: task2.id, sortPosition: 1},
         {content: "Faire un UI", taskId: task2.id, sortPosition: 2},
@@ -60,7 +60,7 @@ export async function seedData() {
 export async function clearAllTasks() {
     const userId = await getCurrentUserId()
 
-    await db.delete(tasks).where(eq(tasks.userId, userId))
+    await db.delete(tasksTable).where(eq(tasksTable.userId, userId))
 
     revalidatePath("/tasks")
     return {success: true, message: "All the tasks have been deleted !"}
