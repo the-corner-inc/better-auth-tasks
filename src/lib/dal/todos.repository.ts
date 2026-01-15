@@ -1,7 +1,7 @@
 import {db} from "@/drizzle/db";
 import {todosTable} from "@/drizzle/schema";
 import {eq} from "drizzle-orm/sql/expressions/conditions";
-import {TodoModel} from "@/lib/dto/tasks/taskTodoDb.dto";
+import {TodoInsertModel, TodoModel} from "@/lib/dto/tasks/taskTodoDb.dto";
 
 
 /**
@@ -48,10 +48,18 @@ export async function deleteTodo(todoId: string) : Promise <boolean> {
     return result.rowCount !== 0
 }
 
+export async function insertManyTodos(rows: Array<TodoInsertModel>) : Promise<void> {
+    if (rows.length === 0)
+        return
+
+    await db.insert(todosTable).values(rows)
+}
+
+
 /**
  * Memo on return Types :
  * findX     → Promise <X | undefined>
- * findListX → Promise <X[]>             (can be an empty array)
+ * findListX → Promise <X []>             (can be an empty array)
  * updateX   → Promise <X | undefined>
  * insertX   → Promise <X>               (it has to exist ot throw DB)
  * deleteX   → Promise <boolean>

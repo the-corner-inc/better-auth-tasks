@@ -1,1 +1,0 @@
-// reflete les entités utilisées dans la BLL

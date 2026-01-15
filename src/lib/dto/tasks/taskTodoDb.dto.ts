@@ -1,6 +1,6 @@
 import { z } from "zod";
 import {tasksTable, todosTable} from "@/drizzle/schema";
-import {createSelectSchema} from 'drizzle-zod';
+import {createInsertSchema, createSelectSchema} from 'drizzle-zod';
 
 /**
  * TODO : REDACT
@@ -51,6 +51,8 @@ import {createSelectSchema} from 'drizzle-zod';
 const taskSchema = createSelectSchema(tasksTable)
 const todoSchema = createSelectSchema(todosTable)
 
+const todoSchemaInsert = createInsertSchema(todosTable)
+
 // Compositions
 const taskWithTodosSchema = taskSchema.extend({
     todos: z.array(todoSchema),
@@ -65,6 +67,8 @@ export type TaskModel = z.infer<typeof taskSchema>;
 export type TodoModel = z.infer<typeof todoSchema>;
 
 export type TaskWithTodoModel = z.infer<typeof taskWithTodosSchema>;
+
+export type TodoInsertModel = z.infer<typeof todoSchemaInsert>;
 
 // ======================================================
 // DTO for the UI

@@ -5,7 +5,7 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/compo
 import {Button} from "@/components/ui/button";
 import {ArrowLeft, ArrowUp, CheckCircle, Circle, Database, Eraser, Plus, RefreshCw, Trash2} from "lucide-react";
 import { Input } from "@/components/ui/input"
-import { seedData, clearAllTasks } from "@/lib/bll/seedClearTasks/seedClearTasks.service";
+import { seedData, clearAllTasks } from "@/lib/bll/seedClearTasks/seedClearTasks.actions";
 import { getTasks, createTask, deleteTask } from "@/lib/bll/tasks/tasks.actions";
 import { createTodo, toggleTodo, deleteTodo } from "@/lib/bll/todos/todos.actions";
 import Link from "next/link";
