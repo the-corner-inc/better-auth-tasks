@@ -5,6 +5,8 @@ import * as tasksRepo from "@/lib/dal/tasks.repository"
  * - No Next.js runtime imports (keep testable)
  * - Applies business rules (validation, not-found checks)
  * - Calls DAL repositories
+ * - Avoid Cross-Core communication (loops)
+ * - Consumes XModel and throws error if undefined
  */
 
 // ======================================================
@@ -13,7 +15,7 @@ import * as tasksRepo from "@/lib/dal/tasks.repository"
 
 export async function createTask (params: { userId: string, title: string }) {
     const title = verifyTitle(params.title)
-    return tasksRepo.insertTask({userId: params.userId, title: title})
+    return await tasksRepo.insertTask({userId: params.userId, title: title})
 }
 
 export async function getTasks (params: { userId: string }) {
@@ -43,7 +45,7 @@ export async function updateTask (params: {userId: string, taskId: string, title
 export async function deleteTask ( params: {userId: string, taskId: string}) {
     const isDeleted = await tasksRepo.deleteTask(params)
     if (!isDeleted)
-        throw new Error(`Task not found`)
+        throw new Error("Task to delete not found")
 }
 
 // ======================================================

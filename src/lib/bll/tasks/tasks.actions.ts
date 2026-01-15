@@ -3,6 +3,7 @@
 import * as tasksCore from "@/lib/bll/tasks/tasks.core"
 import {revalidatePath} from "next/dist/server/web/spec-extension/revalidate";
 import {getCurrentUserId} from "@/lib/auth/session";
+import {handleActionError} from "@/lib/bll/errorHandling";
 
 
 /**
@@ -11,6 +12,7 @@ import {getCurrentUserId} from "@/lib/auth/session";
  * - Place to call "use server"
  * - Handles auth, cache revalidation and data shaping (returns)
  * - Delegates business rules to the BLL
+ * - Uses DTO for UI
  */
 
 // TODO : use ".parse" or ".safeParse" with "taskWithTodosSchemaDTO" to verify data
@@ -20,12 +22,17 @@ import {getCurrentUserId} from "@/lib/auth/session";
 
 // CREATE - Create a new task
 export async function createTask(title: string) {
-    const userId = await getCurrentUserId()
+    try{
+        const userId = await getCurrentUserId()
 
-    const newTask = await tasksCore.createTask({userId, title})
+        const newTask = await tasksCore.createTask({userId, title})
 
-    revalidatePath("/tasks")
-    return {success: true, task: newTask}
+        revalidatePath("/tasks")
+        return {success: true, task: newTask}
+    } catch (error) {
+        return handleActionError(error)
+    }
+
 }
 
 // READ - Get all tasks from the current user

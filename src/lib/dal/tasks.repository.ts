@@ -1,25 +1,27 @@
 import {db} from "@/drizzle/db";
-import {tasks} from "@/drizzle/schema";
+import {tasksTable} from "@/drizzle/schema";
 import {and, eq} from "drizzle-orm/sql/expressions/conditions";
+import {TaskModel, TaskWithTodoModel} from "@/lib/dto/tasks/taskTodoDb.dto";
 
 /**
  * DAL (Data Access Layer)
  * - Drizzle ORM only (Database Acces)
  * - No business logic
  * - No auth / no Next.js imports
+ * - Returns XModel | undefined
  */
 
-export async function insertTask (params: {userId: string, title: string}) {
-    const [row] = await db.insert(tasks).values({
+export async function insertTask (params: {userId: string, title: string}) : Promise<TaskModel> {
+    const [row] = await db.insert(tasksTable).values({
                             title: params.title,
                             userId: params.userId
     }).returning()
     return row
 }
 
-export async function listTasksWithTodos (params: {userId: string})  {
-    return await db.query.tasks.findMany({
-        where: eq(tasks.userId, params.userId),
+export async function listTasksWithTodos (params: {userId: string}) : Promise<TaskWithTodoModel[] | undefined>  {
+    return await db.query.tasksTable.findMany({
+        where: eq(tasksTable.userId, params.userId),
         with: {
             todos: {
                 orderBy: (todos,
@@ -33,11 +35,11 @@ export async function listTasksWithTodos (params: {userId: string})  {
     })
 }
 
-export async function findTaskWithTodos (params: {taskId: string, userId: string}) {
-    return db.query.tasks.findFirst({
+export async function findTaskWithTodos (params: {taskId: string, userId: string}) : Promise<TaskWithTodoModel | undefined> {
+    return db.query.tasksTable.findFirst({
         where: and(
-            eq(tasks.id, params.taskId),
-            eq(tasks.userId, params.userId)),
+            eq(tasksTable.id, params.taskId),
+            eq(tasksTable.userId, params.userId)),
         with: {
             todos: {
                 orderBy: (todos, {asc}) =>
@@ -47,28 +49,49 @@ export async function findTaskWithTodos (params: {taskId: string, userId: string
     })
 }
 
-export async function updateTaskTitle (params: {taskId: string, userId: string, title: string}) {
+export async function updateTaskTitle (params: {taskId: string, userId: string, title: string}) : Promise<TaskModel | undefined> {
     const [row] = await db
-        .update(tasks)
+        .update(tasksTable)
         .set({title: params.title, updatedAt: new Date()})
         .where( and(
-            eq(tasks.id, params.taskId) ,
-            eq(tasks.userId, params.userId) ) )
+            eq(tasksTable.id, params.taskId) ,
+            eq(tasksTable.userId, params.userId) ) )
         .returning()
     return row;
 }
 
 export async function deleteTask (params: { taskId: string, userId: string }) : Promise<boolean> {
     const result = await db
-        .delete(tasks)
+        .delete(tasksTable)
         .where( and(
-            eq(tasks.id, params.taskId) ,
-            eq(tasks.userId, params.userId)  ) )
+            eq(tasksTable.id, params.taskId) ,
+            eq(tasksTable.userId, params.userId)  ) )
     return result.rowCount !== 0
 }
 
-export async function deleteAllTasks (params: {userId: string}) {
-    await db
-        .delete(tasks)
-        .where( eq(tasks.userId, params.userId) )
+export async function deleteAllTasks (params: {userId: string}) : Promise<boolean> {
+    const result = await db
+        .delete(tasksTable)
+        .where( eq(tasksTable.userId, params.userId) )
+    return result.rowCount !== 0
 }
+
+export async function taskExistForUser (params: {userId: string, taskId: string}) : Promise<boolean> {
+    const task = await db.query.tasksTable.findFirst({
+        where: and(
+            eq(tasksTable.id, params.taskId),
+            eq(tasksTable.userId, params.userId) ),
+        // Check only if this row exist in the DB, not the full Tasks row data. Faster.
+        columns: {id: true}
+    })
+    return task != null
+}
+
+/**
+ * Memo on return Types :
+ * findX     → Promise <X | undefined>
+ * findListX → Promise <X[]>             (can be an empty array)
+ * updateX   → Promise <X | undefined>
+ * insertX   → Promise <X>               (it has to exist ot throw DB)
+ * deleteX   → Promise <boolean>
+ */

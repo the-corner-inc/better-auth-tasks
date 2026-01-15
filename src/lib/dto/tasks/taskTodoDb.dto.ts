@@ -1,9 +1,13 @@
 import { z } from "zod";
-import {tasks, todos} from "@/drizzle/schema";
+import {tasksTable, todosTable} from "@/drizzle/schema";
 import {createSelectSchema} from 'drizzle-zod';
 
 /**
- * TODO : What does it do ? Get schemas and make DTO from it ? where do I use it now ? in UI ?
+ * TODO : REDACT
+ * UTILISE LA DB (crée par mon schema) Pour créer mes Modèles ZOD de données en backend
+ * SERVENT A VALIDER LES DONNES QUI VIENNENT DE l'EXTERIEUR (UI & API)
+ * Schemas au RUNTIME
+ * Validation + Types
  */
 
 // TODO : Review this with @Raph to validate this approach or not
@@ -36,31 +40,57 @@ import {createSelectSchema} from 'drizzle-zod';
 //
 // ================================================================
 
-// 1) Base "row schemas" form Db
-// this avoids to re-type all fields and only do composition
-const taskRowSchema = createSelectSchema(tasks)
-const todoRowSchema = createSelectSchema(todos)
 
-// 2) DTO components - Select wich values we want to keep and use in the UI
-const taskSchemaDTO = taskRowSchema.pick({
+// ======================================================
+// SCHEMAS ZOD (from Drizzle)
+// Schemas are generated with Zod based on the row of the DB
+// this avoids to re-type all fields and only do composition
+// ======================================================
+
+// 1) Base "row schemas" form Db
+const taskSchema = createSelectSchema(tasksTable)
+const todoSchema = createSelectSchema(todosTable)
+
+// Compositions
+const taskWithTodosSchema = taskSchema.extend({
+    todos: z.array(todoSchema),
+})
+
+// ======================================================
+// TYPES for internal use (BLL, DAL)
+// MODELS have all the properties mirrored from the DB
+// ======================================================
+export type TaskModel = z.infer<typeof taskSchema>;
+
+export type TodoModel = z.infer<typeof todoSchema>;
+
+export type TaskWithTodoModel = z.infer<typeof taskWithTodosSchema>;
+
+// ======================================================
+// DTO for the UI
+// Select wich properties we want to keep and use in the UI
+// ======================================================
+// 2) DTO components
+const taskSchemaDTO = taskSchema.pick({
     id: true,
     title: true,
 })
 
-const todoSchemaDTO = todoRowSchema.pick({
+const todoSchemaDTO = todoSchema.pick({
     id: true,
     content: true,
     isDone: true,
     sortPosition: true,
 })
 
-// 3) Compose both schemas - Task with Todos list
+// 3) Compose both DTO schemas - Task with Todos list
 export const taskWithTodosSchemaDTO = taskSchemaDTO.extend({
     todos: z.array(todoSchemaDTO),
 })
 
 // 4) Export the Model Type to use in the UI
-export type TaskWithTodosModel = z.infer<typeof taskWithTodosSchemaDTO>
+export type TaskWithTodosDTO = z.infer<typeof taskWithTodosSchemaDTO>
+
 
 
 

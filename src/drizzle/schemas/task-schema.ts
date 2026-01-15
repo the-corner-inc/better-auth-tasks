@@ -2,18 +2,30 @@ import {boolean, index, integer, pgTable, text, timestamp, uuid} from "drizzle-o
 import {relations} from "drizzle-orm";
 import {user} from "./auth-schema"
 
-// Memo Rules for tables cardinality PK and FK
-//  - 1:N → FK in table “N”
-//  - N:N → intermediary table with 2 FK
-//  - 1:1 → FK + UNIQUE
 
-// # # # # # #  T A B L E S  # # # # # #
+/**
+ * TODO :
+ * DEFINE THE DB (tables & Relations)
+ */
 
+
+// ======================================================
+// Tables
+// ======================================================
 // "pgTable" accepts 2-3 args.
 // - SQL Table name
 // - Columns of the table to be defined
 // - Optional : Extraconfig, define indexes and constraints
-export const tasks = pgTable(
+// ======================================================
+
+/**
+ * Memo Rules for tables cardinality PK and FK
+ * - 1:N → FK in table “N”
+ * - N:N → intermediary table with 2 FK
+ * - 1:1 → FK + UNIQUE
+ */
+
+export const tasksTable = pgTable(
     // TABLE NAME
     "tasks",
     // COLUMNS
@@ -37,14 +49,14 @@ export const tasks = pgTable(
 )
 
 
-export const todos = pgTable(
+export const todosTable = pgTable(
     // TABLE NAME
     "todos",
     // COLUMNS
     {
         id: uuid("id").primaryKey().defaultRandom(),                    // PK
         taskId: uuid("task_id").notNull()                               // FK
-                .references( () => tasks.id, {onDelete: "cascade"} ),
+                .references( () => tasksTable.id, {onDelete: "cascade"} ),
 
         content: text("content").notNull(),
         isDone: boolean("is_done").notNull().default(false),
@@ -59,15 +71,18 @@ export const todos = pgTable(
         [index ("todos_task_id_idx").on(tableTodos.taskId)]
 )
 
-
-// # # # # # #  R E L A T I O N S  # # # # # #
+// ======================================================
+// Relations
+// ======================================================
 // Relations : helps Drizzle to understand logic links, and allow easier & typed queries in the backend (via 'with').
 // Relations do NOT create or modify anything in SQL (no FK, no constraints).
+// ======================================================
+
 
 export const tasksRelations = relations (
     // Source Table.
     // We describe relations FROM this table point of view.
-    tasks,
+    tasksTable,
 
     // Callback that receives helpers
     // - one(...)  -> N:1 or 1:1 relation (source table holds the FK)
@@ -78,26 +93,26 @@ export const tasksRelations = relations (
             // A task belongs to ONE user
             // The FK is stored in the "tasks" table (tasks.userId)
             user: one(user, {
-                fields: [tasks.userId], // FK - column from source table (tasks)
+                fields: [tasksTable.userId], // FK - column from source table (tasks)
                 references: [user.id]   // PK - coulmn from reference table (user)
             }),
 
             // RELATION : TASKS 1-->N TODOs
             // A task can be linked to MANY todos
             // The FK is stored in the "todos" table (todos.taskId)
-            todos: many(todos)
+            todos: many(todosTable)
     }),
 )
 
 export const todosRelations = relations(
     // Source Table
-    todos,
+    todosTable,
 
     ({one}) => ({
         // RELATION : TODOs N-->1 TASKS
-        task: one(tasks, {
-           fields: [todos.taskId],  // FK - column from source table (todos)
-           references: [tasks.id]   // PK - coulmn from reference table (tasks)
+        task: one(tasksTable, {
+           fields: [todosTable.taskId],  // FK - column from source table (todos)
+           references: [tasksTable.id]   // PK - coulmn from reference table (tasks)
         }),
     })
 )
@@ -108,6 +123,6 @@ export const userTaskRelations = relations(
 
     ({many}) => ({
         // RELATION : USER 1-->N TASKS
-        tasks: many(tasks),
+        tasks: many(tasksTable),
     })
 )
