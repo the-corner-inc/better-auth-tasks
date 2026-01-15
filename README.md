@@ -33,6 +33,9 @@ Choice of architecture :
 - React / NextJs pas de vraie architecture imposé, alors essayer d'en mettre une en place pour faire bien et avoir une base saine pour ce projet.
 - Overengineered base, mais si le projet grossit, c'est pratique pour bien construire dessus. Pour la lecture du code c'est aussi plus explicite et decouplé ça aide à comprendre le rôle de chaque partie.
 
+- Overkill comme architecture, mais celle que je connais le mieux, et la séparation "of concerns" me permet de bien comprendre ce qui est fait par qui et comment. 
+- Ne plus reprendre cette architecture dans le futur ? 
+
 ---
 ## Project Status / TODO
 
