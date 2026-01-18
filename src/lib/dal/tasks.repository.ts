@@ -1,7 +1,7 @@
 import {db} from "@/drizzle/db";
 import {tasksTable} from "@/drizzle/schema";
 import {and, eq} from "drizzle-orm/sql/expressions/conditions";
-import {TaskModel, TaskWithTodoModel} from "@/lib/entities/tasks/taskTodoDb.dto";
+import {TaskModel, TaskWithTodosModel} from "@/lib/entities/datamodels";
 
 /**
  * DAL (Data Access Layer)
@@ -19,7 +19,7 @@ export async function insertTask (params: {userId: string, title: string}) : Pro
     return row
 }
 
-export async function listTasksWithTodos (params: {userId: string}) : Promise<TaskWithTodoModel[] | undefined>  {
+export async function listTasksWithTodos (params: {userId: string}) : Promise<TaskWithTodosModel[]>  {
     return await db.query.tasksTable.findMany({
         where: eq(tasksTable.userId, params.userId),
         with: {
@@ -35,7 +35,7 @@ export async function listTasksWithTodos (params: {userId: string}) : Promise<Ta
     })
 }
 
-export async function findTaskWithTodos (params: {taskId: string, userId: string}) : Promise<TaskWithTodoModel | undefined> {
+export async function findTaskWithTodos (params: {taskId: string, userId: string}) : Promise<TaskWithTodosModel | undefined> {
     return db.query.tasksTable.findFirst({
         where: and(
             eq(tasksTable.id, params.taskId),

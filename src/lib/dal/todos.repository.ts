@@ -1,7 +1,7 @@
 import {db} from "@/drizzle/db";
 import {todosTable} from "@/drizzle/schema";
 import {eq} from "drizzle-orm/sql/expressions/conditions";
-import {TodoInsertModel, TodoModel} from "@/lib/entities/tasks/taskTodoDb.dto";
+import {TodoInsertModel, TodoModel} from "@/lib/entities/datamodels";
 
 
 /**

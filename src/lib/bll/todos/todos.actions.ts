@@ -1,10 +1,6 @@
 "use server"
 
 import * as todosCore from "@/lib/bll/todos/todos.core"
-import {db} from "@/drizzle/db";
-import {tasksTable, todosTable} from "@/drizzle/schema";
-import { and } from "drizzle-orm";
-import {eq} from "drizzle-orm/sql/expressions/conditions";
 import {revalidatePath} from "next/dist/server/web/spec-extension/revalidate";
 import {getCurrentUserId} from "@/lib/auth/session";
 
@@ -59,8 +55,6 @@ export async function deleteTodo(todoId: string) {
     const userId = await getCurrentUserId()
 
     await todosCore.deleteTodo ({userId:userId, todoId:todoId})
-
-    await db.delete(todosTable).where(eq(todosTable.id, todoId))
 
     revalidatePath("/tasks")
     return {success: true}

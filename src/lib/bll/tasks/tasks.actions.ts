@@ -22,7 +22,7 @@ import {handleActionError} from "@/lib/bll/errorHandling";
 
 // CREATE - Create a new task
 export async function createTask(title: string) {
-    try{
+    try{ // ToDo : Example of how to make the error Handeling later on
         const userId = await getCurrentUserId()
 
         const newTask = await tasksCore.createTask({userId, title})
