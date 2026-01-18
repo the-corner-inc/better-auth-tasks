@@ -14,7 +14,6 @@ import {
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { LoadingSwap } from "@/components/ui/loading-swap"
-import { NumberInput } from "@/components/ui/number-input"
 import { useRouter } from "next/navigation"
 import {authClient} from "@/lib/auth/auth-client";
 import {toast} from "sonner";

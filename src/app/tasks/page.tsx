@@ -19,7 +19,6 @@ import {NewTaskCard} from "@/app/tasks/_components/new-task-card";
 
 export default async function TasksPage() {
 
-    // ToDo : Why do we not make it a client-side page and use authClient ?
     const session= await auth.api.getSession({ headers: await headers() })
 
     if (!session)
