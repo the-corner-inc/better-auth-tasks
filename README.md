@@ -77,6 +77,7 @@ This section gives a quick overview of the current project state for other teams
     - Unit Test : BLL to test as n°1, test the errors, throw and successes
     - Intergartion Test : DAL, test the : docker run / stop, schema migrations, execute "insert, list, udate, delete" and verify the results from the DB
 - [ ] Make it as a whole container (dockerise)
+- [ ] Verify where there are too many arguments of functions, and pass a model instead
 
 
 ---

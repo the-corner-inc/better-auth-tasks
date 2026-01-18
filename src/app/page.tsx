@@ -30,10 +30,7 @@ export default function Home() {
                ====================================================== */}
                 {session == null ? (
                     <>
-                        <h1 className="text-3xl font-bold">Welcome to Our App</h1>
-                        <Button asChild size="lg" onClick={() => setCount(c => c + 1)}>
-                            <h1>COUNTER : {count}</h1>
-                        </Button>
+                        <h1 className="text-3xl font-bold">Welcome to Task Manager</h1>
                         <Button asChild size="lg">
                             <Link href="/auth/login">Sign In / Sign Up</Link>
                         </Button>
