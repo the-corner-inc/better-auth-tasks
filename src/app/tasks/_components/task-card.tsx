@@ -6,7 +6,7 @@ import {deleteTask} from "@/lib/bll/tasks/tasks.actions";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
 import {CheckCircle, Circle, Plus, PlusCircle, Trash2} from "lucide-react";
-import type {TaskWithTodosDTO} from "@/lib/dto/tasks/taskTodoDb.dto";  // import "type" avoids to break the bundle between server & client side
+import type {TaskWithTodosDTO} from "@/lib/entities/tasks/taskTodoDb.dto";  // import "type" avoids to break the bundle between server & client side
 import {useState} from "react";
 import { Input } from "@/components/ui/input"
 

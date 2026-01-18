@@ -1,7 +1,7 @@
 import {db} from "@/drizzle/db";
 import {tasksTable} from "@/drizzle/schema";
 import {and, eq} from "drizzle-orm/sql/expressions/conditions";
-import {TaskModel, TaskWithTodoModel} from "@/lib/dto/tasks/taskTodoDb.dto";
+import {TaskModel, TaskWithTodoModel} from "@/lib/entities/tasks/taskTodoDb.dto";
 
 /**
  * DAL (Data Access Layer)

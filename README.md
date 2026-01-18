@@ -7,6 +7,8 @@ Based on the tutorial, a POC is built to serve two purposes:
 - a **standalone web application**
 - a **partially packaged module** to be distributed as an npm package and integrated into the **up4it** application
 
+!!! THIS IS NOT A POC ANYMORE !! BUT A PREALPHA TASK LIST
+
 ---
 
 ## Technical Stack
@@ -36,6 +38,8 @@ Choice of architecture :
 - Overkill comme architecture, mais celle que je connais le mieux, et la séparation "of concerns" me permet de bien comprendre ce qui est fait par qui et comment. 
 - Ne plus reprendre cette architecture dans le futur ? 
 
+- POurquoi cette architecture overkill ? Pour apprendre les outils dans un architecture que je connais, et séparation en couches aide à comprendre les rôles. De plus, les architectures de Raph (son site web à voir & mentionner ici) n'on rien pour cette tech stack, et quand demandé quoi suivre, juste les pratiqeus standart. Donc j'ai suivi standart + layered archi pour montrer laquelle je connais bien. 
+
 ---
 ## Project Status / TODO
 
@@ -46,7 +50,6 @@ This section gives a quick overview of the current project state for other teams
 - [x] Follow the YouTube tutorial (preparation)
 - [x] Technology POC
 - [ ] Review GitHub issues and adapt the POC
-- [ ] Clean the app (remove tutorial leftovers)
 - [ ] Validate the need for additional auth features:
     - email verification
     - welcome email
@@ -54,18 +57,22 @@ This section gives a quick overview of the current project state for other teams
     - update profile
 - [ ] Up4it: explore how to ship **two formats**
     - **standalone web app**
-    - **integrable module** (only package a subset of the project)
+    - **integrable npm module** (only package a subset of the project)
 
 ### Chore (internal)
-
-- [ ] Refactor toward a Layered Architecture (PL / BLL / DAL separation)
-- [ ] Add ESLint rules to enforce boundaries between layers
-- [ ] Clean code
-- [ ] Clean comments
-- [ ] Implement Error Handling
-- [ ] How to implement tests ? 
-- [ ] Make it as a whole container
+- [x] Refactor toward a Layered Architecture (PL / BLL / DAL separation)
+- [ ] Clean the app (remove tutorial leftovers)
 - [ ] DrawIO Diagramm of architecture, and put it in the project
+- [ ] Clean code
+  - Clean comments
+- [ ] Implement Error Handling
+- [ ] Add ESLint rules to enforce boundaries between layers
+- [ ] Implement unit Testing ? (use [Vitest?](https://vitest.dev/))
+  - UI done by Emanuelle manually
+  - Backend done with unit tests
+    - Unit Test : BLL to test as n°1, test the errors, throw and successes
+    - Intergartion Test : DAL, test the : docker run / stop, schema migrations, execute "insert, list, udate, delete" and verify the results from the DB
+- [ ] Make it as a whole container (dockerise)
 
 
 ---
