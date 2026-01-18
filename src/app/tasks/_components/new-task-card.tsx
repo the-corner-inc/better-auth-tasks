@@ -34,7 +34,7 @@ export function NewTaskCard() {
                     : "hover:border-primary/50"}`}
             onClick={() => !isEditing && setIsEditing(true)}
         >
-            <CardContent className="flex items-center justify-center min-h-[120px] p-4">
+            <CardContent className="flex items-center justify-center min-h-30 p-4">
                 {isEditing ? (
                     <Input
                         placeholder="Task title... (Tap enter to create)"

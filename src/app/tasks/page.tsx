@@ -3,13 +3,23 @@ import {headers} from "next/headers";
 import {redirect} from "next/navigation";
 import {getTasks} from "@/lib/bll/tasks/tasks.actions";
 import Link from "next/link";
-import {ArrowLeft, FlaskConical, Plus} from "lucide-react";
+import {ArrowLeft, FlaskConical} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {TaskCard} from "@/app/tasks/_components/task-card";
 import {NewTaskCard} from "@/app/tasks/_components/new-task-card";
 
+/**
+ * Tasks page - Server Component
+ *
+ * Responsibility:
+ * - Server-side guard if not logged in
+ * - Load the tasks list
+ *
+ */
+
 export default async function TasksPage() {
 
+    // ToDo : Why do we not make it a client-side page and use authClient ?
     const session= await auth.api.getSession({ headers: await headers() })
 
     if (!session)
@@ -21,8 +31,9 @@ export default async function TasksPage() {
 
     return (
         <div className="max-w-4xl mx-auto my-6 px-4">
-            {/* Centered Container */}
-            {/* Header */}
+            {/* ======================================================
+                Header section
+                ====================================================== */}
             <div className="mb-8">
                 <Link href="/" className="inline-flex items-center mb-6 text-muted-foreground hover:text-foreground">
                     <ArrowLeft className="size-4 mr-2"/>
@@ -44,7 +55,11 @@ export default async function TasksPage() {
                 </div>
             </div>
 
-            {/* Content : Grid with "+" Task Card and existing tasks */}
+            {/* ======================================================
+                Content section
+                - NewTaskCard: create task UX
+                - TaskCard*: list of tasks + todos interactions
+                ====================================================== */}
             <div className="grid gap-4 md:grid-cols-2">
                 <NewTaskCard />
                 {

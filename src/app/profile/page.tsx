@@ -6,9 +6,17 @@ import {ArrowLeft, Key, LinkIcon, Loader2Icon, Shield, Trash2, User} from "lucid
 import Image from "next/image"
 import {Badge} from "@/components/ui/badge";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
+import {Card, CardContent} from "@/components/ui/card";
 import {ProfileUpdateForm} from "@/app/profile/_components/profile-update-form";
 import {ReactNode, Suspense} from "react";
+
+/**
+ * Profile page - Server Component
+ *
+ * Responsibilities:
+ * - Server-side guard if not logged in
+ * - Load the current user from the session information
+ */
 
 export default async function ProfilePage() {
 
@@ -18,6 +26,9 @@ export default async function ProfilePage() {
 
     return (
         <div className="max-w-4xl mx-auto my-6 px-4">
+            {/* ======================================================
+                Header section
+                ====================================================== */}
             <div className="mb-8">
                 <Link href="/" className="inline-flex items-center mb-6">
                     <ArrowLeft className="size-4 mr-2" />
@@ -57,27 +68,14 @@ export default async function ProfilePage() {
             </div>
 
 
+            {/* ======================================================
+                Tabs
+                ====================================================== */}
             <Tabs>
                 <TabsList className="grid w-full grid-cols-5">
                     <TabsTrigger value="profile">
                         <User />
                         <span className="max-sm:hidden">Profile</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="security">
-                        <Shield />
-                        <span className="max-sm:hidden">Security</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="sessions">
-                        <Key />
-                        <span className="max-sm:hidden">Sessions</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="accounts">
-                        <LinkIcon />
-                        <span className="max-sm:hidden">Accounts</span>
-                    </TabsTrigger>
-                    <TabsTrigger value="danger">
-                        <Trash2 />
-                        <span className="max-sm:hidden">Danger</span>
                     </TabsTrigger>
                 </TabsList>
 

@@ -10,9 +10,16 @@ import {useEffect} from "react";
 import {authClient} from "@/lib/auth/auth-client";
 import {useRouter} from "next/navigation";
 
+/**
+ * Login page
+ *
+ * - Auth UI: tabs for sign in / sign up
+ * - Client-side guard: redirect to "/" if already authenticated
+ */
+
 export default function LoginPage () {
 
-    // ToDo : Add : Email verification, forgot password, Welcome Email. Use "Resend" ?
+    // ToDo : Add : Email verification, forgot password, Welcome Email. Use "Resend" mail server ?
 
     // Don't show the sign in / sign up page if the user is already authenticated
     const router = useRouter()
@@ -30,6 +37,9 @@ export default function LoginPage () {
                 <TabsTrigger value="signup">Sign Up</TabsTrigger>
             </TabsList>
 
+            {/* ======================================================
+                TAB: Sign In
+                ====================================================== */}
             <TabsContent value="signin">
                 <Card>
                     <CardHeader className="text-2xl font-bold">
@@ -47,6 +57,9 @@ export default function LoginPage () {
                 </Card>
             </TabsContent>
 
+            {/* ======================================================
+                TAB: Sign Up
+                ====================================================== */}
             <TabsContent value="signup">
                 <Card>
                     <CardHeader className="text-2xl font-bold">

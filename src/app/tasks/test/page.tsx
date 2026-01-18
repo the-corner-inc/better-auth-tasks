@@ -3,18 +3,24 @@
 import {useState} from "react";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import {Button} from "@/components/ui/button";
-import {ArrowLeft, ArrowUp, CheckCircle, Circle, Database, Eraser, Plus, RefreshCw, Trash2} from "lucide-react";
+import {ArrowLeft, CheckCircle, Circle, Database, Eraser, Plus, RefreshCw, Trash2} from "lucide-react";
 import { Input } from "@/components/ui/input"
 import { seedData, clearAllTasks } from "@/lib/bll/seedClearTasks/seedClearTasks.actions";
 import { getTasks, createTask, deleteTask } from "@/lib/bll/tasks/tasks.actions";
 import { createTodo, toggleTodo, deleteTodo } from "@/lib/bll/todos/todos.actions";
 import Link from "next/link";
 
+/**
+ *
+ * Test page for Tasks
+ * For Developpers and testing purpose only
+ *
+ */
 
 export default function TestPage() {
 
     // Hooks - Allows to re-render the composant with the new values
-    // 1) Stores the new alue
+    // 1) Stores the new value
     // 2) Flag the composant as dirty
     // 3) Throws a new render of it (could happen at any time, so good that it stores the value)
     const [result, setResult] = useState<string>("") // Result : typically for messages of success / error

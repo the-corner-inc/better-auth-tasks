@@ -39,6 +39,10 @@ Choice of architecture :
 - Ne plus reprendre cette architecture dans le futur ? 
 
 - POurquoi cette architecture overkill ? Pour apprendre les outils dans un architecture que je connais, et séparation en couches aide à comprendre les rôles. De plus, les architectures de Raph (son site web à voir & mentionner ici) n'on rien pour cette tech stack, et quand demandé quoi suivre, juste les pratiqeus standart. Donc j'ai suivi standart + layered archi pour montrer laquelle je connais bien. 
+- Ajoute de la testabilité sur la BLL sans simuler NExtJS
+- Maintenabilité, Chaque fichier a une seule responsabilité
+- permet de coder proprement et structurer un projet. Si le porjet grandit, architecture déja en place.
+- 
 
 ---
 ## Project Status / TODO

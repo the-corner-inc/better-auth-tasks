@@ -1,11 +1,14 @@
 'use client';
+
 import {useState} from "react";
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import {authClient} from "@/lib/auth/auth-client";
 import {BetterAuthActionButton} from "@/components/auth/better-auth-action-button";
 
-// PAGE : The main content of a specific route or URL. It changes based on navigation.
+/**
+ * Home page - Entry point of the application
+ */
 
 export default function Home() {
 
@@ -17,9 +20,14 @@ export default function Home() {
     }
 
     return (
-
         <div className="my-6 px-4 max-w-md mx-auto">
             <div className="text-center space-y-6">
+
+                {/* ======================================================
+                UI Branching:
+                - session == null : unauthenticated visitor
+                - session != null : authenticated user
+               ====================================================== */}
                 {session == null ? (
                     <>
                         <h1 className="text-3xl font-bold">Welcome to Our App</h1>
@@ -32,8 +40,9 @@ export default function Home() {
                     </>
                 ) : (
                     <>
-                        <h1 className="text-3xl font-bold">Welcome {session.user.name}!</h1>
-                        {/* TODO: Add Loading States */}
+                        <h1 className="text-3xl font-bold">
+                            Welcome {session.user.name}!
+                        </h1>
                         <div className="flex gap-4 justify-center">
 
                             <Button asChild size="lg">
