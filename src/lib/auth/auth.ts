@@ -31,11 +31,11 @@ export const auth = betterAuth({
     // Additional user fields, extend te defaults properties with some custom fields
     user: {
       additionalFields: {
-          numbersOfRepos: {
+          /*numbersOfRepos: {
               type: "number",
               required: true,
               defaultValue: 0,
-          },
+          },*/
       }
     },
 

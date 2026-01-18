@@ -13,7 +13,6 @@ import {BetterAuthActionButton} from "@/components/auth/better-auth-action-butto
 export default function Home() {
 
     const {data: session, isPending: loading} = authClient.useSession()
-    const [count, setCount] = useState(0);
 
     if(loading){
         return <div>Loading...</div>;

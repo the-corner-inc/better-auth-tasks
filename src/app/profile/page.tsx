@@ -2,7 +2,7 @@ import {auth} from "@/lib/auth/auth";
 import {headers} from "next/headers";
 import {redirect} from "next/navigation";
 import Link from "next/link";
-import {ArrowLeft, Key, LinkIcon, Loader2Icon, Shield, Trash2, User} from "lucide-react";
+import {ArrowLeft, Loader2Icon, User} from "lucide-react";
 import Image from "next/image"
 import {Badge} from "@/components/ui/badge";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";

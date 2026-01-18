@@ -22,7 +22,6 @@ import {toast} from "sonner";
 const profileUpdateSchema = z.object({
     name: z.string().min(1),
     email: z.string().email(),
-    numbersOfRepos: z.number().int(),
 })
 
 type ProfileUpdateFormData = z.infer<typeof profileUpdateSchema>
@@ -31,7 +30,6 @@ export function ProfileUpdateForm({ user }: Readonly<{
     user: {
         email: string
         name: string
-        numbersOfRepos: number
     }
 }>) {
     const router = useRouter()
@@ -47,7 +45,6 @@ export function ProfileUpdateForm({ user }: Readonly<{
         const promises = [
             authClient.updateUser({
                 name: data.name,
-                numbersOfRepos: data.numbersOfRepos,
             })
         ]
 
@@ -110,19 +107,6 @@ export function ProfileUpdateForm({ user }: Readonly<{
                     )}
                 />
 
-                <FormField
-                    control={form.control}
-                    name="numbersOfRepos"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Numbers of Repos</FormLabel>
-                            <FormControl>
-                                <NumberInput {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
 
                 <Button type="submit" disabled={isSubmitting} className="w-full">
                     <LoadingSwap isLoading={isSubmitting}>Update Profile</LoadingSwap>
