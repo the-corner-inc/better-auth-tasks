@@ -15,12 +15,14 @@ import arcjet, {
 // A mount handler is responsible for processing incoming requests and sending appropriate responses.
 // In Next.js, you can create API routes that act as endpoints for your application.
 
-
+// ======================================================
 // Handler for AUTH API route using Better Auth and Next.js
 // export const { POST, GET } = toNextJsHandler(auth); // Classic way to do it, but we want to limit rate the POST method only
-
+// ======================================================
 // Auth handlers for different HTTP methods
 // We limit rate limiting to POST method only for security reasons (to prevent brute-force attacks on sign-in/sign-up).
+// ======================================================
+
 const authHandlers =  toNextJsHandler(auth)
 export const { GET } = authHandlers
 
@@ -86,8 +88,10 @@ async function checkArcjet(request: Request) {
 
 
 
-
+// ======================================================
 // ArcJet security options
+// ======================================================
+
 const aj = arcjet({
     key: process.env.ARCJET_KEY!,
     characteristics: ["userIdOrIp"],    // Use user ID or IP address to identify clients for rate limiting and bot detection

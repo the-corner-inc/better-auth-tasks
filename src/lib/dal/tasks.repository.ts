@@ -5,12 +5,21 @@ import {TaskModel, TaskWithTodosModel} from "@/lib/entities/datamodels";
 
 /**
  * DAL (Data Access Layer)
- * - Drizzle ORM only (Database Acces)
+ *
+ * Responsibilities:
+ * - Database Acces (Drizzle ORM)
+ * - Build Query and execute them
+ *
+ * Constraints:
+ * - Returns raw data (Model Types)
  * - No business logic
- * - No auth / no Next.js imports
- * - Returns XModel | undefined
+ * - no authentication (better-auth)
+ * - no Next.js imports
  */
 
+// ======================================================
+// CRUD Operations
+// ======================================================
 export async function insertTask (params: {userId: string, title: string}) : Promise<TaskModel> {
     const [row] = await db.insert(tasksTable).values({
                             title: params.title,
@@ -76,6 +85,10 @@ export async function deleteAllTasks (params: {userId: string}) : Promise<boolea
     return result.rowCount !== 0
 }
 
+
+// ======================================================
+// Query Helpers
+// ======================================================
 export async function taskExistForUser (params: {userId: string, taskId: string}) : Promise<boolean> {
     const task = await db.query.tasksTable.findFirst({
         where: and(

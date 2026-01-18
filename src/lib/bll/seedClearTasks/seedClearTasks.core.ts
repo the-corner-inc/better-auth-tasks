@@ -1,7 +1,25 @@
 import * as tasksRepo from "@/lib/dal/tasks.repository";
 import * as todosRepo from "@/lib/dal/todos.repository";
 
+/**
+ * BLL (Business Logic Layer)
+ *
+ * Provides test data functions for development.
+ *
+ * Responsibilities:
+ * - Business rules (validation, not-found checks)
+ * - Throws errors (good for tests and error handling)
+ * - Make the DAL calls
+ *
+ * Constraints:
+ * - No Next.js imports (to keep it testable)
+ * - No direct database access
+ * - No cross-core communication (loops)
+ */
 
+// ======================================================
+// Test Data Operations
+// ======================================================
 export async function seedDataForUser(userId: string) {
     const task1 = await tasksRepo.insertTask({ userId, title: "Courses" });
     const task2 = await tasksRepo.insertTask({ userId, title: "Projet Next.js" });

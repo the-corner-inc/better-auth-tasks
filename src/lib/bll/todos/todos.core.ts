@@ -3,11 +3,16 @@ import * as tasksRepo from "@/lib/dal/tasks.repository"
 
 /**
  * BLL (Business Logic Layer)
- * - No Next.js runtime imports (keep testable)
- * - Applies business rules (validation, not-found checks)
- * - Calls DAL repositories
- * - Avoid Cross-Core communication (loops)
- * - Consumes XModel and throws error if undefined
+ *
+ * Responsibilities:
+ * - Business rules (validation, not-found checks)
+ * - Throws errors (good for tests and error handling)
+ * - Make the DAL calls
+ *
+ * Constraints:
+ * - No Next.js imports (to keep it testable)
+ * - No direct database access
+ * - No cross-core communication (loops)
  */
 
 // ======================================================

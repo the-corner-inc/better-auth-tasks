@@ -6,11 +6,21 @@ import {TodoInsertModel, TodoModel} from "@/lib/entities/datamodels";
 
 /**
  * DAL (Data Access Layer)
- * - Drizzle ORM only (Database Acces)
+ *
+ * Responsibilities:
+ * - Database Acces (Drizzle ORM)
+ * - Build Query and execute them
+ *
+ * Constraints:
+ * - Returns raw data (Model Types)
  * - No business logic
- * - No auth / no Next.js imports
- * - Returns XModel | undefined
+ * - no authentication (better-auth)
+ * - no Next.js imports
  */
+
+// ======================================================
+// CRUD Operations
+// ======================================================
 export async function listTodosByTaskId(taskId: string) : Promise<TodoModel[]>  {
     return db.query.todosTable.findMany({
         where: eq(todosTable.taskId, taskId)

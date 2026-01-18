@@ -1,9 +1,15 @@
 //ToDo : implement Later
 /**
- * Handles Actions / UI boundary
- * - It's job is to transform a internal error (throw) into a ....? TODO
- * - not used in the BLL. BLL throws business errors. ex "throw new Error("ACCESS_DENIED")"
+ * Error handling utilities for Server Actions
+ *
+ * Transform a internal error (throw) into structured responses that the UI can handle
+ *
+ * Not used in the BLL. BLL throws business errors. ex "throw new Error("ACCESS_DENIED")"
  */
+
+// ======================================================
+// Types
+// ======================================================
 // Value used as a return value, so the caller knows if it's a success or not
 export type Result<T> =
     | { success: true; data: T }
@@ -14,6 +20,10 @@ export type AppError =
     | { code: "VALIDATION"; message: string; field?: string }
     | { code: "CONFLICT"; message: string; field?: string };
 
+
+// ======================================================
+// Error Handler
+// ======================================================
 // Map the BLL errors used
 export function handleActionError(error: unknown) {
     if (error instanceof Error) {

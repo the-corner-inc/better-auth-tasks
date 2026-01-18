@@ -8,14 +8,16 @@ import {handleActionError} from "@/lib/bll/errorHandling";
 
 /**
  * Next.js Server Actions - Interface with UI
+ *
+ * Responsibilities:
  * - Entry point for the UI layer
- * - Place to call "use server"
- * - Handles auth, cache revalidation and data shaping (returns)
- * - Delegates business rules to the BLL
- * - Uses DTO for UI
+ * - "Place" to call "use server"
+ * - Handles authentication, cache revalidation and data shaping (returns)
+ * - Delegates business logic to BLL (core)
+ * - Todo : Error handling
+ * - Todo : Use ".parse(data)" to verify data from schemas
  */
 
-// TODO : use ".parse" or ".safeParse" with "taskWithTodosSchemaDTO" to verify data
 // ======================================================
 // UI Server Actions
 // ======================================================
