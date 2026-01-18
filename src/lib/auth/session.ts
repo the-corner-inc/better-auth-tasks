@@ -3,7 +3,16 @@
 import {auth} from "@/lib/auth/auth";
 import {headers} from "next/headers";
 
-// ToDo : COMMENT
+/**
+ * Auth - Session Helpers
+ *
+ * Responsibilities:
+ * - Provide helper functions for the rest of the app (Server Actions)
+ * - Centralize server-side session retrieval
+ *
+ * Constraints:
+ * - "use server" + server only imports
+ */
 
 // ================================================================
 // Get current user ID (throws error if not logged in)

@@ -3,11 +3,32 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/drizzle/db";
 import {nextCookies} from "better-auth/next-js"; // the drizzle instance
 
-//  Import Better Auth and create your auth instance.
-//  Make sure to export the auth instance with the variable name auth or as a default export.
+/**
+ * Auth - Server configuration
+ *
+ * Is the source of truth for all auth configuration.
+ *
+ * Responsibilities:
+ * - Configure Better Auth
+ * - Declare authentication providers
+ * - Define the session/user model exposed to the app
+ * - Binds Better Auth to the Drizzle ORM
+ *
+ * Usage:
+ * - Imported only on the server side
+ * - Used by :
+ *      - Server Components & Actions
+ *      - Route handlers
+ *
+ * Constraints:
+ * - Server-only
+ * - Can access secrets and environments variables
+ * - Acts as the single source of truth for Auth behaviors
+ */
+
 export const auth = betterAuth({
 
-
+    // Additional user fields, extend te defaults properties with some custom fields
     user: {
       additionalFields: {
           numbersOfRepos: {
@@ -67,6 +88,4 @@ export const auth = betterAuth({
             }
         },
     },
-
-
 });

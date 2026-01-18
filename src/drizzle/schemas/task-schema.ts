@@ -4,10 +4,18 @@ import {user} from "./auth-schema"
 
 
 /**
- * TODO :
- * DEFINE THE DB (tables & Relations)
+ * Database schema definition for TASKS and TODOS
+ *
+ * This files defines :
+ * - Table structures in the DB (columns, types, constraints)
+ * - Index for query optimisation
+ * - Relations for Drizzle's query builder
+ *
+ * Cardinality Rules (PK & FK):
+ *  - 1:N → FK in table "N"
+ *  - N:N → intermediary table with 2 FK
+ *  - 1:1 → FK + UNIQUE
  */
-
 
 // ======================================================
 // Tables
@@ -17,13 +25,6 @@ import {user} from "./auth-schema"
 // - Columns of the table to be defined
 // - Optional : Extraconfig, define indexes and constraints
 // ======================================================
-
-/**
- * Memo Rules for tables cardinality PK and FK
- * - 1:N → FK in table “N”
- * - N:N → intermediary table with 2 FK
- * - 1:1 → FK + UNIQUE
- */
 
 export const tasksTable = pgTable(
     // TABLE NAME
@@ -77,7 +78,6 @@ export const todosTable = pgTable(
 // Relations : helps Drizzle to understand logic links, and allow easier & typed queries in the backend (via 'with').
 // Relations do NOT create or modify anything in SQL (no FK, no constraints).
 // ======================================================
-
 
 export const tasksRelations = relations (
     // Source Table.
