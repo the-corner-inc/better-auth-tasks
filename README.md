@@ -1,48 +1,44 @@
 # Better Auth Tasks
 
-> Task management application with authentication, built by following this YouTube tutorial: 
-> [this tutorial](https://www.youtube.com/watch?v=WPiqNDapQrk).
+A task management application with authentication, built with Next.js and a layered architecture.
+> 🎯 Originally based on [this YouTube tutorial](https://www.youtube.com/watch?v=WPiqNDapQrk), now evolved into a standalone project demonstrating layered architecture patterns.
 
-Based on the tutorial, a POC is built to serve two purposes:
+Based on the tutorial, first a POC is build to understand the tech used, and then a alpha version will be released to serve two purposes:
 - a **standalone web application**
 - a **partially packaged module** to be distributed as an npm package and integrated into the **up4it** application
-
-!!! THIS IS NOT A POC ANYMORE !! BUT A PREALPHA TASK LIST
 
 ---
 
 ## Technical Stack
 
-- **Framework** : [Next.js](https://nextjs.org/) 16
-- **Database (docker)** : [PostgreSQL](https://www.postgresql.org/) 18
-- **ORM** : [Drizzle ORM](https://orm.drizzle.team/)
-- **Authentification** : [Better Auth](https://www.better-auth.com/)
-- **UI Components** : [shadcn/ui](https://ui.shadcn.com/)
-- **Styling** : [Tailwind CSS](https://tailwindcss.com/) v4
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| [Next.js](https://nextjs.org/) | 15 | React framework |
+| [PostgreSQL](https://www.postgresql.org/) | 16 | Database (Docker) |
+| [Drizzle ORM](https://orm.drizzle.team/) | latest | Type-safe ORM |
+| [Better Auth](https://www.better-auth.com/) | latest | Authentication |
+| [shadcn/ui](https://ui.shadcn.com/) | latest | UI Components |
+| [Tailwind CSS](https://tailwindcss.com/) | 4 | Styling |
 
 ---
 
-## Architecture (to redact correctly)
-This project is a fullstack app, some parts are being packaged as npm modules, the app itself should be a standalone usable as it is.
-The architecture tends to use a Layered architecture, with a : 
-- Presentation Layer (PL) : Is the Core part of the UI, how the data is diplayed on the screen and how the states are handeled. This is the User Interaction Layer.
-- Business Layer (BLL) : Contains the core logic of the app, the treatment is done here.
-- Data Acces Layer (DAL) : Connects the repo to the DB, and contains all the Query to it
-- Data Transfert Objects (DTO) : Cross layer, each layer has aces to it
+## Architecture 
 
-Choice of architecture : 
-- Ce que je connais le mieux dans la logique. Propre et decouplé, un peu boilerplate, mais on s'y fait vite.
-- React / NextJs pas de vraie architecture imposé, alors essayer d'en mettre une en place pour faire bien et avoir une base saine pour ce projet.
-- Overengineered base, mais si le projet grossit, c'est pratique pour bien construire dessus. Pour la lecture du code c'est aussi plus explicite et decouplé ça aide à comprendre le rôle de chaque partie.
+This project follows a **Layered Architecture** pattern, adapted for the Next.js ecosystem.
 
-- Overkill comme architecture, mais celle que je connais le mieux, et la séparation "of concerns" me permet de bien comprendre ce qui est fait par qui et comment. 
-- Ne plus reprendre cette architecture dans le futur ? 
+### Choice for a Layered Architecture
+| Reason | Benefit                                                                                                                                                                                                           |
+|--------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Separation of Concerns** | Each layer has a single responsibility, making code easier to understand and maintain                                                                                                                             |
+| **Testability** | BLL can be unit tested without mocking Next.js runtime                                                                                                                                                            |
+| **Scalability** | If the project grows, the architecture is already in place                                                                                                                                                        |
+| **Familiarity** | Well-known pattern from backend development (C#, Java, etc.). <br/>**In the end, it's the best way for me to understand what is happening in this framework, to translate it to something I'm already familiar with.** |
 
-- POurquoi cette architecture overkill ? Pour apprendre les outils dans un architecture que je connais, et séparation en couches aide à comprendre les rôles. De plus, les architectures de Raph (son site web à voir & mentionner ici) n'on rien pour cette tech stack, et quand demandé quoi suivre, juste les pratiqeus standart. Donc j'ai suivi standart + layered archi pour montrer laquelle je connais bien. 
-- Ajoute de la testabilité sur la BLL sans simuler NExtJS
-- Maintenabilité, Chaque fichier a une seule responsabilité
-- permet de coder proprement et structurer un projet. Si le porjet grandit, architecture déja en place.
-- 
+> **Note**: This architecture is overkill for a small project, but it serves as a learning exercise to understand how each layer interacts in a Next.js context.
+
+# INSERT IMAGE HERE
+### Representation of the architecture
+
 
 ---
 ## Project Status / TODO
@@ -52,7 +48,10 @@ This section gives a quick overview of the current project state for other teams
 ### Feat (product)
 
 - [x] Follow the YouTube tutorial (preparation)
-- [x] Technology POC
+  - [x] Authentication (Better Auth)
+- [x] Learn the technology for the POC
+  - [x] Task and Todo CRUD operations
+  - [x] Layered Architecture refactoring
 - [ ] Review GitHub issues and adapt the POC
 - [ ] Validate the need for additional auth features:
     - email verification
@@ -65,10 +64,8 @@ This section gives a quick overview of the current project state for other teams
 
 ### Chore (internal)
 - [x] Refactor toward a Layered Architecture (PL / BLL / DAL separation)
-- [ ] Clean the app (remove tutorial leftovers)
-- [ ] DrawIO Diagramm of architecture, and put it in the project
-- [ ] Clean code
-  - Clean comments
+- [x] Clean the app (remove tutorial leftovers)
+- [ ] DrawIO Diagram of architecture, and put it in the project
 - [ ] Implement Error Handling
 - [ ] Add ESLint rules to enforce boundaries between layers
 - [ ] Implement unit Testing ? (use [Vitest?](https://vitest.dev/))
@@ -76,7 +73,7 @@ This section gives a quick overview of the current project state for other teams
   - Backend done with unit tests
     - Unit Test : BLL to test as n°1, test the errors, throw and successes
     - Intergartion Test : DAL, test the : docker run / stop, schema migrations, execute "insert, list, udate, delete" and verify the results from the DB
-- [ ] Make it as a whole container (dockerise)
+- [ ] Dockerize the full application
 - [ ] Verify where there are too many arguments of functions, and pass a model instead
 
 
