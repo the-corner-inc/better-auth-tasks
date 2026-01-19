@@ -1,0 +1,1 @@
+ALTER TABLE "user" ALTER COLUMN "numbers_of_repos" SET NOT NULL;
