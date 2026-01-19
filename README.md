@@ -1,7 +1,7 @@
 # Better Auth Tasks
 
 A task management application with authentication, built with Next.js and a layered architecture.
-> 🎯 Originally based on [this YouTube tutorial](https://www.youtube.com/watch?v=WPiqNDapQrk), now evolved into a standalone project demonstrating layered architecture patterns.
+> Originally based on [this YouTube tutorial](https://www.youtube.com/watch?v=WPiqNDapQrk), now evolved into a standalone project demonstrating layered architecture patterns.
 
 Based on the tutorial, first a POC is build to understand the tech used, and then a alpha version will be released to serve two purposes:
 - a **standalone web application**
@@ -36,9 +36,27 @@ This project follows a **Layered Architecture** pattern, adapted for the Next.js
 
 > **Note**: This architecture is overkill for a small project, but it serves as a learning exercise to understand how each layer interacts in a Next.js context.
 
-# INSERT IMAGE HERE
-### Representation of the architecture
 
+### Representation of the architecture
+This representation may still change, but this is the attempt to implement a layered architecture into the project.
+![Layered Architecture Diagram](public/documentaiton/Up4It-Tasks-Architecture.png)
+
+### Layer Responsibilities
+
+| Layer | Location                          | Responsibility | Imports allowed |
+|-------|-----------------------------------|----------------|-----------------|
+| **UI** | `src/app/`<br/> `src/components/` | React components, pages, user interaction | Actions, DTOs |
+| **Actions** | `src/lib/bll/*/*.actions.ts`      | Server Actions entry point, auth, cache revalidation | Core, Next.js |
+| **Core** | `src/lib/bll/*/*.core.ts`         | Business rules, validation, orchestration | Repository only |
+| **Repository** | `src/lib/dal/*.repository.ts`     | Database queries via Drizzle ORM | Drizzle, Models |
+| **Entities** | `src/lib/entities/`               | Models (internal types) & DTOs (UI types) | Drizzle schemas |
+
+### Key Constraints
+
+- **Core never imports Next.js** → Keeps business logic testable
+- **Repository never imports Core** → No business logic in DAL
+- **UI never imports Repository** → Must go through Actions
+> May add those rules later with ESLint
 
 ---
 ## Project Status / TODO
@@ -65,14 +83,14 @@ This section gives a quick overview of the current project state for other teams
 ### Chore (internal)
 - [x] Refactor toward a Layered Architecture (PL / BLL / DAL separation)
 - [x] Clean the app (remove tutorial leftovers)
-- [ ] DrawIO Diagram of architecture, and put it in the project
+- [x] DrawIO Diagram of architecture, and put it in the project
 - [ ] Implement Error Handling
 - [ ] Add ESLint rules to enforce boundaries between layers
 - [ ] Implement unit Testing ? (use [Vitest?](https://vitest.dev/))
   - UI done by Emanuelle manually
   - Backend done with unit tests
     - Unit Test : BLL to test as n°1, test the errors, throw and successes
-    - Intergartion Test : DAL, test the : docker run / stop, schema migrations, execute "insert, list, udate, delete" and verify the results from the DB
+    - Integration Test : DAL, test the : docker run / stop, schema migrations, execute "insert, list, udate, delete" and verify the results from the DB
 - [ ] Dockerize the full application
 - [ ] Verify where there are too many arguments of functions, and pass a model instead
 
@@ -159,7 +177,7 @@ docker compose down
 # Show the logs
 docker compose logs -f db
 
-# Delete all datas (complet reset)
+# Delete all data (complet reset)
 docker compose down -v
 ```
 ---
@@ -189,7 +207,7 @@ npx @better-auth/cli@latest generate \
 
 ---
 
-## Ressources
+## Resources
 
 - [Documentation Next.js](https://nextjs.org/docs)
 - [Documentation Drizzle ORM](https://orm.drizzle.team/docs/overview)
